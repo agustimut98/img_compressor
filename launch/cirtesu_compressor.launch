@@ -6,7 +6,7 @@
     <node name="img_compressor_node" pkg="img_compressor" type="img_compressor_node_v2.py" output="screen" respawn="true" >
 
 	<!-- REMAPEAR TOPICS -->
-        <!-- <remap from = "original_image" to = "/stereo_down/scaled_x2/left/image_rect_color" /> -->
+        <remap from = "original_image" to = "/stereo_down/left/image_raw" />
         <!-- <remap from = "compressed_image" to = "/cirtesu/compressed_image" /> -->
 
     </node>

@@ -1,11 +1,37 @@
 <launch>
 	
-	<arg name="camera" default="/stereo_down"/>
-	<param name="/use_sim_time" value="true"/>
+	<!-- PARAMETERS -->
+    	<param name="/use_sim_time"      value = "true"/>
+
+    	<!-- Image parameters -->
+    	<arg name = "camera"             default = "/stereo_down"/>
+    	<arg name = "resolution"         default = "full"/>
+    	<arg name = "enable_decimate_x1" default = "false"/>
+    	<arg name = "enable_decimate_x2" default = "false"/>
+    	<arg name = "enable_decimate_x4" default = "true"/>
 
 	<arg name="bagfile" default="/home/agusti/Descargas/perAgusti/images_2020-12-03-14-45-17_1.bag"/>
 
 	<node pkg="rosbag" type="play" name="rosbag" args="--clock $(arg bagfile) -r 1" />
+
+	<!-- RUN stereo image proc -->
+    	<include file = "$(find img_compressor)/launch/stereo_3D.launch" if = "$(eval enable_decimate_x1 == true)">
+        	<arg name = "stereo"     value = "$(arg camera)" />
+        	<arg name = "decimation" value = "1" />
+        	<arg name = "resolution" value = "$(arg resolution)" />
+    	</include>
+
+    	<include file = "$(find img_compressor)/launch/stereo_3D.launch" if = "$(eval enable_decimate_x2 == true)">
+        	<arg name = "stereo"     value = "$(arg camera)" />
+        	<arg name = "decimation" value = "2" />
+        	<arg name = "resolution" value = "$(arg resolution)" />
+    	</include>
+
+    	<include file = "$(find img_compressor)/launch/stereo_3D.launch" if = "$(eval enable_decimate_x4 == true)">
+        	<arg name = "stereo"     value = "$(arg camera)" />
+        	<arg name = "decimation" value = "4" />
+        	<arg name = "resolution" value = "$(arg resolution)" />
+    	</include>
 
 
 </launch>
