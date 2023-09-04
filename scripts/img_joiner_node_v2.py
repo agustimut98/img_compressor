@@ -7,7 +7,7 @@ import os
 from sensor_msgs.msg import Image as ImageMsg
 from img_compressor_v2.msg import BinarySplit
 import subprocess
-import glymur
+# import glymur
 from PIL import Image
 from cv_bridge import CvBridge
 import cv2
@@ -97,8 +97,11 @@ class Joiner:
                 for b_data in msg.data:
                     jp2file.write(b_data)
 
+            img = cv2.imread(file_path_input, cv2.IMREAD_GRAYSCALE)
+            img = cv2.imwrite(file_path_output)
+
             # Executar descompresió amb JPEG2000
-            Image.fromarray(glymur.Jp2k(file_path_input)[:]).save(file_path_output)
+            # Image.fromarray(glymur.Jp2k(file_path_input)[:]).save(file_path_output)
             rospy.loginfo("Imatge descomprimida correctament!")
 
             # Publicar imatge al topic decompressed_image
