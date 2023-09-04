@@ -5,12 +5,12 @@ from time import time
 import rospy
 import cv2 as cv
 from sensor_msgs.msg import Image as ImageMsg
-from img_compressor.msg import BinarySplit
+from img_compressor_v2.msg import BinarySplit
 #from mine_detection.msg import det
 #from mine_detection.msg import mine_detections
 from cv_bridge import CvBridge
 from PIL import Image
-import glymur
+# import glymur
 import subprocess
 import os
 import time
@@ -47,29 +47,29 @@ class ImageCompressor:
         self.img_pub = rospy.Publisher("compressed_image", BinarySplit, queue_size = 10)
 
         self.comp_type = "JPEG2000"
-        img_compressor_type = "/img_compressor/type"
-        if rospy.has_param(img_compressor_type):
-            self.comp_type = rospy.get_param(img_compressor_type) 
+        img_compressor_v2_type = "/img_compressor_v2/type"
+        if rospy.has_param(img_compressor_v2_type):
+            self.comp_type = rospy.get_param(img_compressor_v2_type) 
 
         self.grayscale = False
-        img_compressor_grayscale = "/img_compressor/grayscale"
-        if rospy.has_param(img_compressor_grayscale):
-            self.grayscale = rospy.get_param(img_compressor_grayscale)
+        img_compressor_v2_grayscale = "/img_compressor_v2/grayscale"
+        if rospy.has_param(img_compressor_v2_grayscale):
+            self.grayscale = rospy.get_param(img_compressor_v2_grayscale)
 
         self.comp_ratio = 500
-        img_compressor_ratio = "/img_compressor/ratio"
-        if rospy.has_param(img_compressor_ratio):
-            self.comp_ratio = rospy.get_param(img_compressor_ratio)
+        img_compressor_v2_ratio = "/img_compressor_v2/ratio"
+        if rospy.has_param(img_compressor_v2_ratio):
+            self.comp_ratio = rospy.get_param(img_compressor_v2_ratio)
 
         self.img_width = 0
-        img_compressor_width = "/img_compressor/width"
-        if rospy.has_param(img_compressor_width):
-            self.img_width = rospy.get_param(img_compressor_width)
+        img_compressor_v2_width = "/img_compressor_v2/width"
+        if rospy.has_param(img_compressor_v2_width):
+            self.img_width = rospy.get_param(img_compressor_v2_width)
 
         self.img_height= 0
-        img_compressor_height = "/img_compressor/height"
-        if rospy.has_param(img_compressor_height):
-            self.img_height = rospy.get_param(img_compressor_height)
+        img_compressor_v2_height = "/img_compressor_v2/height"
+        if rospy.has_param(img_compressor_v2_height):
+            self.img_height = rospy.get_param(img_compressor_v2_height)
  
 
     def img_callback(self, img_data):

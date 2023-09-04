@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(img_compressor)
+project(img_compressor_v2)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -156,8 +156,8 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-  scripts/img_compressor_node.py
-  scripts/img_joiner_node.py
+  scripts/img_compressor_node_v2.py
+  scripts/img_joiner_node_v2.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

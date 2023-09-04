@@ -5,7 +5,7 @@ from time import time
 import rospy
 import os
 from sensor_msgs.msg import Image as ImageMsg
-from img_compressor.msg import BinarySplit
+from img_compressor_v2.msg import BinarySplit
 import subprocess
 import glymur
 from PIL import Image
@@ -44,7 +44,7 @@ class Joiner:
         self.img_pub = rospy.Publisher("decompressed_image", ImageMsg, queue_size = 10)
 
         self.comp_type = "JPEG2000"
-        img_compressor_type = "/img_compressor/type"
+        img_compressor_type = "/img_compressor_v2/type"
         if rospy.has_param(img_compressor_type):
             self.comp_type = rospy.get_param(img_compressor_type)
 
