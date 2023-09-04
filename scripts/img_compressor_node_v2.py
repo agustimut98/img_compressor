@@ -21,7 +21,7 @@ def run_imshrinker(input_file, output_file, script_dir):
     # Construye el comando como una lista de strings 
     command = [os.path.join(script_dir, "imshrinker"), "c0.9" , input_file, output_file]
     
-    # Ejecuta el comando. Ejemplo de REDAME.md: ./imshrinker  c0.7 ../test-data/new425.ppm ../test-data/Cnew425ppm.ims
+    # Ejecuta el comando. Comadno de ejemplo de REDAME.md: ./imshrinker  c0.7 ../test-data/new425.ppm ../test-data/Cnew425ppm.ims
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
 
@@ -74,8 +74,24 @@ class ImageCompressor:
 
     def img_callback(self, img_data):
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path_input = os.path.join(script_dir, "raw_image/img.pgm")   #Establir ruta on guardar la imatge rebuda al topic original_image
-        file_path_output = os.path.join(script_dir, "compressed_image/img") #Establir ruta on guardar la imatge comprimida
+
+        #Establir ruta on guardar la imatge rebuda al topic original_image
+        file_path_input = os.path.join(script_dir, "original_image")
+
+        # Crear el directori en cas de no existir
+        if not os.path.exists(file_path_input):
+            os.makedirs(file_path_input)
+
+        # Assignar nom i format a la imatge original
+        file_name = "img.pgm"
+        file_path_input = os.path.join(file_path_input, file_name) 
+
+        #Establir ruta on guardar la imatge comprimida
+        file_path_output = os.path.join(script_dir, "compressed_image") 
+
+        # Crear el directori en cas de no existir
+        if not os.path.exists(file_path_output):
+            os.makedirs(file_path_output)
 
         # Imatge rebuda al topic original_image
         cv_image = self.bridge.imgmsg_to_cv2(img_data, "bgr8")
@@ -84,11 +100,18 @@ class ImageCompressor:
         # Compresió mitjançant algoritme SPIHT
         if self.comp_type == "SPIHT":
             rospy.loginfo("Imatge rebuda, iniciant compresió amb SPIHT!")
-            str_format = ".ims"
-            file_path_output += str_format
+            
+            # Establir nom i format a la imatge comprimida
+            file_name = "img.ims"
+            file_path_output = os.path.join(file_path_output,file_name)
 
+            # Passar imatge original a escala de grisos
             cv_image = cv.cvtColor(cv_image, cv.COLOR_RGB2GRAY)
+
+            # Passar imatge a NumPy array
             pil_image = Image.fromarray(cv_image)
+
+            # Guardar imatge 
             pil_image.save(file_path_input)
 
             #Comprimir imagen en formato .ims
@@ -106,7 +129,6 @@ class ImageCompressor:
                     while chunk:
                         bsplit_msg.chunk_number += 1
                         bsplit_msg.data.append(chunk)
-                        # Tal vegda sigui bsplit_msg.data.extend(chunk)
                         chunk = imsfile.read(chunk_size)
 
                     self.img_pub.publish(bsplit_msg)
@@ -118,12 +140,19 @@ class ImageCompressor:
 
         # Compresió mitjançant algoritme DEBT
         elif self.comp_type == "DEBT":
+
+            # Establir nom i format a la imatge comprimida
             rospy.loginfo("Imatge rebuda, iniciant compresió amb DEBT!")
-            str_format = ".dbt"
-            file_path_output += str_format
-            
+            file_name = "img.dbt"
+            file_path_output = os.path.join(file_path_output, file_name)
+
+            # Passar imatge original a escala de grisos
             cv_image = cv.cvtColor(cv_image, cv.COLOR_RGB2GRAY)
+
+            # Passar imatge a NumPy array
             pil_image = Image.fromarray(cv_image)
+
+            # Guardar imatge
             pil_image.save(file_path_input)
 
             # Comprimir imagen en formato .dbt
@@ -141,7 +170,6 @@ class ImageCompressor:
                     while chunk:
                         bsplit_msg.chunk_number += 1
                         bsplit_msg.data.append(chunk)
-                        # Tal vegda sigui bsplit_msg.data.extend(chunk)
                         chunk = dbtfile.read(chunk_size)
 
                     self.img_pub.publish(bsplit_msg)
@@ -154,8 +182,8 @@ class ImageCompressor:
         # Compresió mitjançant algoritme JPEG2000
         elif self.comp_type == "JPEG2000":
             rospy.loginfo("Imatge rebuda, iniciant compresió amb JPEG2000!")
-            str_format = ".jp2"
-            file_path_output += str_format
+            file_name = "img.jp2"
+            file_path_output = os.path.join(file_path_output,file_name)
 
             #Comprobar parametros de compresión:
             # Escala de grises
@@ -174,11 +202,15 @@ class ImageCompressor:
                 cv_image = cv.resize(cv_image, (new_width, new_height),
                                      interpolation=cv.INTER_AREA)
 
+            # Passar imatge a NumPy array
             pil_image = Image.fromarray(cv_image)
+            
+            # Guardar imatge
             pil_image.save(file_path_input)
 
             # Comprimir imagen en formato .jp2
-            glymur.Jp2k(file_path_output, data=cv_image, cratios=[self.comp_ratio])
+            #glymur.Jp2k(file_path_output, data=cv_image, cratios=[self.comp_ratio])
+            self.save_jpeg2000_img(pil_image, file_path_output, self.comp_ratio)
             rospy.loginfo("Imatge comprimida correctament!")
             
             if os.path.exists(file_path_output):
@@ -193,7 +225,6 @@ class ImageCompressor:
                     while chunk:
                         bsplit_msg.chunk_number += 1
                         bsplit_msg.data.append(chunk)
-                        # Tal vegda sigui bsplit_msg.data.extend(chunk)
                         chunk = jp2file.read(chunk_size)
 
                     self.img_pub.publish(bsplit_msg)
@@ -204,6 +235,10 @@ class ImageCompressor:
 
         else: 
             rospy.logerr("Format de compressió no suportat")
+
+    def save_jpeg2000_img(self, img, img_path, ratio):
+        img.save("{}/img.jp2".format(img_path), quality_mode="rates",
+                quality_layers=[ratio])
 
 def main():
     rospy.init_node("compressor", anonymous=True, disable_signals=True)

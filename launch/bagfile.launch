@@ -12,7 +12,7 @@
 
 	<arg name="bagfile" default="/home/agusti/Descargas/perAgusti/images_2020-12-03-14-45-17_1.bag"/>
 
-	<node pkg="rosbag" type="play" name="rosbag" args="--clock $(arg bagfile) -r 1" />
+	<node pkg="rosbag" type="play" name="rosbag" args="--clock $(arg bagfile) -r 0.05" required="true" />
 
 	<!-- RUN stereo image proc -->
     	<include file = "$(find img_compressor)/launch/stereo_3D.launch" if = "$(eval enable_decimate_x1 == true)">
