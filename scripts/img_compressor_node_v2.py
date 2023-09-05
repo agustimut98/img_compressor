@@ -182,8 +182,8 @@ class ImageCompressor:
         # Compresió mitjançant algoritme JPEG2000
         elif self.comp_type == "JPEG2000":
             rospy.loginfo("Imatge rebuda, iniciant compresió amb JPEG2000!")
-            file_name = "img.jp2"
-            file_path_output = os.path.join(file_path_output,file_name)
+            #file_name = "img.jp2"
+            #file_path_output = os.path.join(file_path_output,file_name)
 
             #Comprobar parametros de compresión:
             # Escala de grises
@@ -204,20 +204,23 @@ class ImageCompressor:
 
             # Passar imatge a NumPy array
             pil_image = Image.fromarray(cv_image)
+
+
+
             
             # Guardar imatge
-            pil_image.save(file_path_input)
+            #pil_image.save(file_path_input)
 
             # Comprimir imagen en formato .jp2
             #glymur.Jp2k(file_path_output, data=cv_image, cratios=[self.comp_ratio])
-            self.save_jpeg2000_img(pil_image, file_path_output, self.comp_ratio)
+            self.save_jpeg2000_img(pil_image, file_path_output, 500)
             #cv.imwrite(file_path_output, cv_image, self.comp_ratio)
             rospy.loginfo("Imatge comprimida correctament!")
             
             if os.path.exists(file_path_output):
 
                 # Leer archivo por partes y publicarlo
-                with open(file_path_output, 'rb') as jp2file:
+                with open(file_path_output + "/img.jp2" , 'rb') as jp2file:
                     bsplit_msg = BinarySplit()
                     
                     chunk_size = 128
@@ -238,8 +241,7 @@ class ImageCompressor:
             rospy.logerr("Format de compressió no suportat")
 
     def save_jpeg2000_img(self, img, img_path, ratio):
-        img.save(img_path, quality_mode="rates",
-                quality_layers=[ratio])
+        img.save("{}/img.jp2".format(img_path), quality_mode="rates", quality_layers=[ratio])
 
 def main():
     rospy.init_node("compressor", anonymous=True, disable_signals=True)
