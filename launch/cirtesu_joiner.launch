@@ -6,7 +6,8 @@
     <node name="img_joiner_node" pkg="img_compressor_v2" type="img_joiner_node_v2.py" output="screen" respawn="true" >
 	
     	<!-- DIRECTORIO DE LA IMAGEN DESCOMPRIMIDA -->
-    	<!-- <param name = "outdir" value = "/home/agusti/catkin_ws/src/cirtesu_common_python_img_compressor/scripts/decompressed_image"/> -->
+
+    	<!-- <param name = "outdir" value = "/home/agusti/catkin_ws/src/cirtesu_common_python_img_compressor_v2/scripts/decompressed_image"/> -->
 
 	    <!-- REMAPEAR TOPICS -->
         <remap from = "compressed_image" to = "/turbot/burst_acoustic" />
