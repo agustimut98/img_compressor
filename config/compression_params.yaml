@@ -1,6 +1,6 @@
 img_compressor:
   # TIPO DE COMPRESION DE IMAGEN: JPEG2000, DEBT, SPIHT
-  type: SPIHT
+  type: JPEG2000
   grayscale: True
   ratio: 500
   width: 960

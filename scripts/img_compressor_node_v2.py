@@ -211,6 +211,7 @@ class ImageCompressor:
             # Comprimir imagen en formato .jp2
             #glymur.Jp2k(file_path_output, data=cv_image, cratios=[self.comp_ratio])
             self.save_jpeg2000_img(pil_image, file_path_output, self.comp_ratio)
+            #cv.imwrite(file_path_output, cv_image, self.comp_ratio)
             rospy.loginfo("Imatge comprimida correctament!")
             
             if os.path.exists(file_path_output):
@@ -237,7 +238,7 @@ class ImageCompressor:
             rospy.logerr("Format de compressió no suportat")
 
     def save_jpeg2000_img(self, img, img_path, ratio):
-        img.save("{}/img.jp2".format(img_path), quality_mode="rates",
+        img.save(img_path, quality_mode="rates",
                 quality_layers=[ratio])
 
 def main():
