@@ -6,7 +6,7 @@
   <arg name="resolution" default ="full" />
   <arg name="nodelet_args" value="standalone image_proc/crop_decimate" />
 
-  <arg name="disparity_params" value="$(find img_compressor)/config/disparity_params_$(arg resolution)_x$(arg decimation).yaml" />
+  <arg name="disparity_params" value="$(find img_compressor_v2)/config/disparity_params_$(arg resolution)_x$(arg decimation).yaml" />
 
   <node pkg="nodelet" type="nodelet" name="image_proc_decimate_left_x$(arg decimation)" ns="$(arg stereo)" output="screen" respawn="true" args="$(arg nodelet_args)" >
     <param name="decimation_x" value="$(arg decimation)" />

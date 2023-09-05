@@ -15,19 +15,19 @@
 	<node pkg="rosbag" type="play" name="rosbag" args="--clock $(arg bagfile) -r 0.05" required="true" />
 
 	<!-- RUN stereo image proc -->
-    	<include file = "$(find img_compressor)/launch/stereo_3D.launch" if = "$(eval enable_decimate_x1 == true)">
+    	<include file = "$(find img_compressor_v2)/launch/stereo_3D.launch" if = "$(eval enable_decimate_x1 == true)">
         	<arg name = "stereo"     value = "$(arg camera)" />
         	<arg name = "decimation" value = "1" />
         	<arg name = "resolution" value = "$(arg resolution)" />
     	</include>
 
-    	<include file = "$(find img_compressor)/launch/stereo_3D.launch" if = "$(eval enable_decimate_x2 == true)">
+    	<include file = "$(find img_compressor_v2)/launch/stereo_3D.launch" if = "$(eval enable_decimate_x2 == true)">
         	<arg name = "stereo"     value = "$(arg camera)" />
         	<arg name = "decimation" value = "2" />
         	<arg name = "resolution" value = "$(arg resolution)" />
     	</include>
 
-    	<include file = "$(find img_compressor)/launch/stereo_3D.launch" if = "$(eval enable_decimate_x4 == true)">
+    	<include file = "$(find img_compressor_v2)/launch/stereo_3D.launch" if = "$(eval enable_decimate_x4 == true)">
         	<arg name = "stereo"     value = "$(arg camera)" />
         	<arg name = "decimation" value = "4" />
         	<arg name = "resolution" value = "$(arg resolution)" />
