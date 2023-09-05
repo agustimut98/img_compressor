@@ -97,8 +97,8 @@ class Joiner:
                 for b_data in msg.data:
                     jp2file.write(b_data)
 
-            img = cv2.imread(file_path_input, cv2.IMREAD_GRAYSCALE)
-            img = cv2.imwrite(file_path_output)
+            #img = cv2.imread(file_path_input, cv2.IMREAD_GRAYSCALE)
+            #img = cv2.imwrite(file_path_output)
 
             # Executar descompresió amb JPEG2000
             #Image.fromarray(glymur.Jp2k(file_path_input)[:]).save(file_path_output)
