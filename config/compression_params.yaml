@@ -1,12 +1,45 @@
 img_compressor:
+
   # TIPO DE COMPRESION DE IMAGEN: JPEG2000, DEBT, SPIHT
   type: DEBT
+
   # GUARDAR HISTORICO DE IMAGENES
   historic: True
+
   # ESCALA DE GRISES
-  grayscale: True
+  grayscale: False
+
+
+  # TRANSFORMADA WAVELET USADA PARA DEBT 
+  # (cdf-9/7, ncdf-9/7) and (5/3, 9/3, 9/7, 13/7, haar) <ibior-13/7>
+  transform: cdf-9/7
+
+  # NÚMERO DE TRANSFORMADAS PARA DEBT
+  nbands: 6
+
+  # MÉTODO ESTADISTICO USADO PARA DEBT
+  # -r 0 : Uniform for LL and Laplace for HL+LH+HH
+  # -r 1 : Uniform for LL+HL+LH+HH
+  # -r 2 : Uniform for LL + calculated exponential power distribution for HL+LH+HH
+  # -r 3 : Uniform for LL + calculates exponential power distributions for HL+LH and HH
+  # -r 4 : Uniform for LL + calculates exponential power distributions for HL, LH, and HH
+  method: 2
+
+  # IMPRIMIR ESTADÍSTICAS DE CODIFICACIÓN PARA DEBT
+  log: 0
+
+  # CALIDAD USADA PARA DEBT
+  # Quality value (0 = max) <0.000000>
+  quality: 4
+
+
+  # TASA DE BITS POR PIXEL PARA SPIHT
+  bpp: 0.7
+
+
   # RATIO DE COMPRESION PARA JPEG2000
   ratio: 500
+
   # REESCALADO PARA JPEG2000
   width: 0
   height: 0

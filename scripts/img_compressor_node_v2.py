@@ -14,20 +14,26 @@ import os
 import time
 
 
-def run_imshrinker(input_file, output_file, script_dir):
+def run_imshrinker(input_file, output_file, script_dir, bpp,):
+    bpp = "c" + str(bpp)
 
     # Construye el comando como una lista de strings 
-    command = [os.path.join(script_dir, "imshrinker"), "c0.9" , input_file, output_file]
+    command = [os.path.join(script_dir, "imshrinker"), bpp , input_file, output_file]
     
     # Ejecuta el comando. Comadno de ejemplo de REDAME.md: ./imshrinker  c0.7 ../test-data/new425.ppm ../test-data/Cnew425ppm.ims
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
 
 
-def run_debter(input_file, output_file, script_dir):
+def run_debter(input_file, output_file, script_dir, quality, log, method, nbands, transform):
+    quality = str(quality)
+    log = str(log)
+    method = str(method)
+    nbands = str(nbands)
+    transform = str(transform)
 
     # Construye el comando como una lista de strings
-    command = [os.path.join(script_dir, "debter"), "-t", "cdf-9/7", "-r", "2", "-q", "4", "-f", "1"]
+    command = [os.path.join(script_dir, "debter"), "-t", transform, "-r", method, "-q", quality, "-f", log]
 
     # Abre los archivos de entrada y salida
     with open(input_file, 'r') as infile, open(output_file, 'w') as outfile, open(os.devnull, 'w') as DEVNULL:
@@ -58,6 +64,39 @@ class ImageCompressor:
         img_compressor_grayscale = "/img_compressor/grayscale"
         if rospy.has_param(img_compressor_grayscale):
             self.grayscale = rospy.get_param(img_compressor_grayscale)
+
+
+        self.transform = "cdf-9/7"
+        img_compressor_transform = "/img_compressor/transform"
+        if rospy.has_param(img_compressor_transform):
+            self.transform = rospy.get_param(img_compressor_transform)
+
+        self.nbands = 6
+        img_compressor_nbands = "/img_compressor/nbands"
+        if rospy.has_param(img_compressor_nbands):
+            self.nbands = rospy.get_param(img_compressor_nbands)   
+
+        self.method = 2
+        img_compressor_method = "/img_compressor/method"
+        if rospy.has_param(img_compressor_method):
+            self.method = rospy.get_param(img_compressor_method)
+
+        self.log = 1
+        img_compressor_log = "/img_compressor/log"
+        if rospy.has_param(img_compressor_log):
+            self.log = rospy.get_param(img_compressor_log)
+
+        self.quality = 4
+        img_compressor_quality = "/img_compressor/quality"
+        if rospy.has_param(img_compressor_quality):
+            self.quality = rospy.get_param(img_compressor_quality)
+
+
+        self.bpp = 0.5
+        img_compressor_bpp = "/img_compressor/bpp"
+        if rospy.has_param(img_compressor_bpp):
+            self.bpp = rospy.get_param(img_compressor_bpp)
+
 
         self.comp_ratio = 500
         img_compressor_ratio = "/img_compressor/ratio"
@@ -159,7 +198,7 @@ class ImageCompressor:
 
 
             #Comprimir imagen en formato .ims
-            run_imshrinker(file_path_input_SPIHT, file_path_output_SPIHT, script_dir)
+            run_imshrinker(file_path_input_SPIHT, file_path_output_SPIHT, script_dir, self.bpp)
             rospy.loginfo("Imatge comprimida correctament!")
 
             if os.path.exists(file_path_output_SPIHT):
@@ -230,7 +269,7 @@ class ImageCompressor:
             pil_image.save(file_path_input_DEBT)
 
             # Comprimir imagen en formato .dbt
-            run_debter(file_path_input_DEBT, file_path_output_DEBT, script_dir)
+            run_debter(file_path_input_DEBT, file_path_output_DEBT, script_dir, self.quality, self.log, self.method, self.nbands, self.transform)
             rospy.loginfo("Imatge comprimida correctament!")
 
             if os.path.exists(file_path_output_DEBT):
