@@ -75,14 +75,14 @@ class Joiner:
     def _img_callback(self, msg):
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
-        # Establir ruta on guardar la imatge rebuda al topic compressed_image
+        # Establir ruta on guardar la imatge rebuda al topic compressed_image (../compressed_image)
         file_path_input = os.path.join(script_dir, "compressed_image")
 
         # Crear el directori en cas de no existir
         if not os.path.exists(file_path_input):
             os.makedirs(file_path_input)
 
-        # Establir ruta on guardar la imatge descomprimida
+        # Establir ruta on guardar la imatge descomprimida (../decompressed_image)
         file_path_output = os.path.join(script_dir, "decompressed_image")
 
         # Crear el directori en cas de no existir
@@ -94,38 +94,38 @@ class Joiner:
         if self.comp_type ==  "JPEG2000":
             rospy.loginfo("Imatge rebuda, iniciant decompresió amb JPEG2000!")
 
-            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressed_image/JPEG2000)
             file_path_input_JPEG2000 = os.path.join(file_path_input, "JPEG2000")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_input_JPEG2000):
                 os.makedirs(file_path_input_JPEG2000)
             
-            # Assignar nom i format a la imatge comprimida
+            # Assignar nom i format a la imatge comprimida segons el paràmetre historic
             if self.historic == True:
-                # Guardar historic de imatges comprimides
+                # Guardar historic de imatges comprimides (../compressed_image/JPEG2000/imgX.jp2)
                 img_number = int(len(os.listdir(file_path_input_JPEG2000)))
                 file_name = "img{}.jp2".format(str(img_number))
             else:
-                # Sobreescriure imatge comprmida
+                # Sobreescriure imatge comprmida (../compressed_image/JPEG2000/img.jp2)
                 file_name = "img.jp2"
             file_path_input_JPEG2000 = os.path.join(file_path_input_JPEG2000, file_name)
 
 
-            #Establir ruta on guardar la imatge descomprimida segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge descomprimida segons el tipus d'algoritme (../decompressed_image/JPEG2000)
             file_path_output_JPEG2000 = os.path.join(file_path_output, "JPEG2000")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_output_JPEG2000):
                 os.makedirs(file_path_output_JPEG2000)
 
-            # Assignar nom i format a la imatge descomprmida
+            # Assignar nom i format a la imatge descomprmida segons el paràmetre historic
             if self.historic == True:
-                # Guardar historic de imatges descomprimides
+                # Guardar historic de imatges descomprimides (../decompressed_image/JPEG2000/imgX.jpg)
                 img_number = int(len(os.listdir(file_path_output_JPEG2000)))
                 file_name = "img{}.jpg".format(str(img_number))
             else:
-                # Sobreescriure imatge descomprmida
+                # Sobreescriure imatge descomprmida (../decompressed_image/JPEG2000/img.jpg)
                 file_name = "img.jpg"
             file_path_output_JPEG2000 = os.path.join(file_path_output_JPEG2000, file_name)
 
@@ -154,38 +154,38 @@ class Joiner:
         elif self.comp_type == "DEBT":
             rospy.loginfo("Imatge rebuda, iniciant decompresió amb DEBT!")
 
-            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressed_image/DEBT)
             file_path_input_DEBT = os.path.join(file_path_input, "DEBT")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_input_DEBT):
                 os.makedirs(file_path_input_DEBT)
 
-            # Assignar nom i format a la imatge comprimida
+            # Assignar nom i format a la imatge comprimida segons el paràmetre historic
             if self.historic == True:
-                # Guardar historic de imatges comprimides
+                # Guardar historic de imatges comprimides (../compressed_image/JPEG2000/imgX.dbt)
                 img_number = int(len(os.listdir(file_path_input_DEBT)))
                 file_name = "img{}.dbt".format(str(img_number))
             else:
-                # Sobreescriure imatge comprmida
+                # Sobreescriure imatge comprmida (../compressed_image/JPEG2000/img.dbt)
                 file_name = "img.dbt"
             file_path_input_DEBT = os.path.join(file_path_input_DEBT, file_name)
 
 
-            #Establir ruta on guardar la imatge descomprimida segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge descomprimida segons el tipus d'algoritme (../decompressed_image/JPEG2000)
             file_path_output_DEBT = os.path.join(file_path_output, "DEBT")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_output_DEBT):
                 os.makedirs(file_path_output_DEBT)
 
-            # Assignar nom i format a la imatge descomprimida
+            # Assignar nom i format a la imatge descomprimida segons el paràmetre historic
             if self.historic == True:
-                # Guardar historic de imatges descomprimides                
+                # Guardar historic de imatges descomprimides (../decompressed_image/JPEG2000/imgX.pgm)           
                 img_number = int(len(os.listdir(file_path_output_DEBT)))
                 file_name = "img{}.pgm".format(str(img_number))
             else:
-                # Sobreescriure imatge descomprmida                
+                # Sobreescriure imatge descomprmida (../decompressed_image/JPEG2000/img.pgm)            
                 file_name = "img.pgm"
             file_path_output_DEBT = os.path.join(file_path_output_DEBT, file_name)
 
@@ -209,40 +209,51 @@ class Joiner:
         elif self.comp_type == "SPIHT":
             rospy.loginfo("Imatge rebuda, iniciant decompresió amb SPIHT!")
 
-            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressed_image/SPIHT)
             file_path_input_SPIHT = os.path.join(file_path_input, "SPIHT")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_input_SPIHT):
                 os.makedirs(file_path_input_SPIHT)
 
-            # Assignar nom i format a la imatge comprimida
+            # Assignar nom i format a la imatge comprimida segons el paràmetre historic
             if self.historic == True:
-                # Guardar historic de imatges comprimides
+                # Guardar historic de imatges comprimides (../compressed_image/SPIHT/imgX.ims)
                 img_number = int(len(os.listdir(file_path_input_SPIHT)))
                 file_name = "img{}.ims".format(str(img_number))
             else:
-                # Sobreescriure imatge comprmida
+                # Sobreescriure imatge comprmida (../compressed_image/SPIHT/img.ims)
                 file_name = "img.ims"
             file_path_input_SPIHT = os.path.join(file_path_input_SPIHT, file_name)
 
 
-            #Establir ruta on guardar la imatge descomprimida segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge descomprimida segons el tipus d'algoritme (../decompressed_image/SPIHT)
             file_path_output_SPIHT = os.path.join(file_path_output, "SPIHT")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_output_SPIHT):
                 os.makedirs(file_path_output_SPIHT)
 
-            # Assignar nom i format a la imatge descomprimida
-            if self.historic == True:
-                # Guardar historic de imatges descomprimides                
-                img_number = int(len(os.listdir(file_path_output_SPIHT)))
-                file_name = "img{}.pgm".format(str(img_number))
+            # Assignar nom i format a la imatge descomprimida segons els paràmetres graycale i historic
+            if self.grayscale == True:
+                if self.historic == True:
+                    # Guardar historic de imatges descomprimides  (../decompressed_image/SPIHT/imgX.pgm)              
+                    img_number = int(len(os.listdir(file_path_output_SPIHT)))
+                    file_name = "img{}.pgm".format(str(img_number))
+                else:
+                    # Sobreescriure imatge descomprmida (../decompressed_image/SPIHT/img.pgm)       
+                    file_name = "img.pgm"
+                file_path_output_SPIHT = os.path.join(file_path_output_SPIHT, file_name)
+
             else:
-                # Sobreescriure imatge descomprmida                
-                file_name = "img.pgm"
-            file_path_output_SPIHT = os.path.join(file_path_output_SPIHT, file_name)
+                if self.historic == True:
+                    # Guardar historic de imatges descomprimides  (../decompressed_image/SPIHT/imgX.ppm)              
+                    img_number = int(len(os.listdir(file_path_output_SPIHT)))
+                    file_name = "img{}.ppm".format(str(img_number))
+                else:
+                    # Sobreescriure imatge descomprmida (../decompressed_image/SPIHT/img.ppm)       
+                    file_name = "img.ppm"
+                file_path_output_SPIHT = os.path.join(file_path_output_SPIHT, file_name)
 
 
             # Join the image      

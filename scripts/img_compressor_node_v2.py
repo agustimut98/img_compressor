@@ -78,14 +78,14 @@ class ImageCompressor:
     def img_callback(self, img_data):
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
-        #Establir ruta on guardar la imatge rebuda al topic original_image
+        #Establir ruta on guardar la imatge rebuda al topic original_image (../original_image)
         file_path_input = os.path.join(script_dir, "original_image")
 
         # Crear el directori en cas de no existir
         if not os.path.exists(file_path_input):
             os.makedirs(file_path_input)
 
-        #Establir ruta on guardar la imatge comprimida
+        #Establir ruta on guardar la imatge comprimida (../compressed_image)
         file_path_output = os.path.join(script_dir, "compressed_image") 
 
         # Crear el directori en cas de no existir
@@ -100,48 +100,62 @@ class ImageCompressor:
         if self.comp_type == "SPIHT":
             rospy.loginfo("Imatge rebuda, iniciant compresió amb SPIHT!")
 
-            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme (../original_image/SPIHT)
             file_path_input_SPIHT = os.path.join(file_path_input, "SPIHT")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_input_SPIHT):
                 os.makedirs(file_path_input_SPIHT)
 
-            # Assignar nom i format a la imatge original
-            if self.historic == True:
-                # Guardar historic de imatges originals
-                img_number = int(len(os.listdir(file_path_input_SPIHT)))
-                file_name = "img{}.pgm".format(str(img_number))
+            # Assignar nom i format a la imatge original segons el paràmetres grayscale i historic
+            if self.grayscale == True:
+                if self.historic == True:
+                    # Guardar historic de imatges originals (../original_image/SPIHT/imgX.pgm)
+                    img_number = int(len(os.listdir(file_path_input_SPIHT)))
+                    file_name = "img{}.pgm".format(str(img_number))
+                else:
+                    # Sobreescriure imatge original (../original_image/SPIHT/img.pgm)
+                    file_name = "img.pgm"
+                file_path_input_SPIHT = os.path.join(file_path_input_SPIHT, file_name)
+
             else:
-                # Sobreescriure imatge original
-                file_name = "img.pgm"
-            file_path_input_SPIHT = os.path.join(file_path_input_SPIHT, file_name)
+                if self.historic == True:
+                    # Guardar historic de imatges originals (../original_image/SPIHT/imgX.ppm)
+                    img_number = int(len(os.listdir(file_path_input_SPIHT)))
+                    file_name = "img{}.ppm".format(str(img_number))
+                else:
+                    # Sobreescriure imatge original (../original_image/SPIHT/img.ppm)
+                    file_name = "img.ppm"
+                file_path_input_SPIHT = os.path.join(file_path_input_SPIHT, file_name)
 
 
-            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressed_image/SPIHT)
             file_path_output_SPIHT = os.path.join(file_path_output, "SPIHT")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_output_SPIHT):
                 os.makedirs(file_path_output_SPIHT)
 
-            # Assignar nom i format a la imatge comprimida
+            # Assignar nom i format a la imatge comprimida segons el parametre historic
             if self.historic == True:
-                # Guardar historic de imatges comprimides
+                # Guardar historic de imatges comprimides (../compressed_image/SPIHT/imgX.ims)
                 img_number = int(len(os.listdir(file_path_output_SPIHT)))
                 file_name = "img{}.ims".format(str(img_number))
             else:
-                # Sobreescriure imatge comprimida
+                # Sobreescriure imatge comprimida (../compressed_image/SPIHT/img.ims)
                 file_name = "img.ims"
             file_path_output_SPIHT = os.path.join(file_path_output_SPIHT, file_name)
 
-
-            # Passar imatge CV2 original a escala de grisos
-            cv_image = cv.cvtColor(cv_image, cv.COLOR_RGB2GRAY)
-            # Passar imatge CV2 en escala de grisos a PIL
-            pil_image = Image.fromarray(cv_image)            
-            # Guardar imatge PIL en escala de grisos
-            pil_image.save(file_path_input_SPIHT)
+            if self.grayscale == True:
+                # Passar imatge CV2 original a escala de grisos
+                cv_image = cv.cvtColor(cv_image, cv.COLOR_RGB2GRAY)
+                # Passar imatge CV2 en escala de grisos a PIL
+                pil_image = Image.fromarray(cv_image)            
+                # Guardar imatge PIL en escala de grisos (.pgm)
+                pil_image.save(file_path_input_SPIHT)
+            else: 
+                # Guardar imatge en color (.ppm)
+                cv.imwrite(file_path_input_SPIHT, cv_image)
 
 
             #Comprimir imagen en formato .ims
@@ -172,40 +186,40 @@ class ImageCompressor:
         elif self.comp_type == "DEBT":
             rospy.loginfo("Imatge rebuda, iniciant compresió amb DEBT!")
 
-            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme (../original_image/DEBT)
             file_path_input_DEBT = os.path.join(file_path_input, "DEBT")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_input_DEBT):
                 os.makedirs(file_path_input_DEBT)
 
-            # Assignar nom i format a la imatge original
+            # Assignar nom i format a la imatge original segons el paràmetre historic
             if self.historic == True:
-                # Guardar historic de imatges originals
+                # Guardar historic de imatges originals (../original_image/DEBT/imgX.pgm)
                 img_number = int(len(os.listdir(file_path_input_DEBT)))
                 file_name = "img{}.pgm".format(str(img_number))
             else:
-                # Sobreescriure imatge original
+                # Sobreescriure imatge original (../original_image/DEBT/img.pgm)
                 file_name = "img.pgm"
             file_path_input_DEBT = os.path.join(file_path_input_DEBT, file_name)
 
 
-            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressed_image/DEBT)
             file_path_output_DEBT = os.path.join(file_path_output, "DEBT")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_output_DEBT):
                 os.makedirs(file_path_output_DEBT)
 
-            # Assignar nom i format a la imatge comprimida
+            # Assignar nom i format a la imatge comprimida segons el paràmetre historic
             if self.historic == True:
-                # Guardar historic de imatges comprimides
+                # Guardar historic de imatges comprimides (../compressed_image/DEBT/imgX.dbt)
                 img_number = int(len(os.listdir(file_path_output_DEBT)))
                 file_name = "img{}.dbt".format(str(img_number))
             else:
-                # Sobreescriure imatge comprimida
+                # Sobreescriure imatge comprimida (../compressed_image/DEBT/img.dbt)
                 file_name = "img.dbt"
-            file_path_output_DEBT = os.path.join(file_path_output_DEBT, file_name)   
+            file_path_output_DEBT = os.path.join(file_path_output_DEBT, file_name)  
 
 
             # Passar imatge CV2 original a escala de grisos
@@ -243,38 +257,38 @@ class ImageCompressor:
         elif self.comp_type == "JPEG2000":
             rospy.loginfo("Imatge rebuda, iniciant compresió amb JPEG2000!")
 
-            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme
+            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme (../original_image/JPEG2000)
             file_path_input_JPEG2000 = os.path.join(file_path_input, "JPEG2000")
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_input_JPEG2000):
                 os.makedirs(file_path_input_JPEG2000)
 
-            # Assignar nom i format a la imatge original
+            # Assignar nom i format a la imatge original segons el paràmetre històric
             if self.historic == True:
-                # Guardar historic de imatges originals
+                # Guardar historic de imatges originals (../original_image/JPEG2000/imgX.jpg)
                 img_number = int(len(os.listdir(file_path_input_JPEG2000)))
                 file_name = "img{}.jpg".format(str(img_number))
             else:
-                # Sobreescriure imatge original
+                # Sobreescriure imatge original (../original_image/JPEG2000/img.jpg)
                 file_name = "img.jpg"
             file_path_input_JPEG2000 = os.path.join(file_path_input_JPEG2000, file_name)
 
 
-            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
-            file_path_output_JPEG2000 = os.path.join(file_path_output, "JPEG2000")
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressed_image/JPEG2000)
+            file_path_output_JPEG2000 = os.path.join(file_path_output, "JPEG2000") 
 
             # Crear el directori en cas de no existir
             if not os.path.exists(file_path_output_JPEG2000):
                 os.makedirs(file_path_output_JPEG2000)
 
-            # Assignar nom i format a la imatge comprimida
+            # Assignar nom i format a la imatge comprimida segons el paràmetre historic
             if self.historic == True:
-                # Guardar historic de imatges comprimides
+                # Guardar historic de imatges comprimides (../compressed_image/JPEG2000/imgX.jpg)
                 img_number = int(len(os.listdir(file_path_output_JPEG2000)))
                 file_name = "img{}.jp2".format(str(img_number))
             else:
-                # Sobreescriure imatge comprimida
+                # Sobreescriure imatge comprimida (../compressed_image/JPEG2000/img.jpg)
                 file_name = "img.jp2"
             file_path_output_JPEG2000 = os.path.join(file_path_output_JPEG2000, file_name)   
 
