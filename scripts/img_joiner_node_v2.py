@@ -93,44 +93,58 @@ class Joiner:
         # Comprovar el format de compresió
         if self.comp_type ==  "JPEG2000":
             rospy.loginfo("Imatge rebuda, iniciant decompresió amb JPEG2000!")
+
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            file_path_input_JPEG2000 = os.path.join(file_path_input, "JPEG2000")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_input_JPEG2000):
+                os.makedirs(file_path_input_JPEG2000)
             
             # Assignar nom i format a la imatge comprimida
             if self.historic == True:
                 # Guardar historic de imatges comprimides
-                img_number = int(len(os.listdir(file_path_input)))
+                img_number = int(len(os.listdir(file_path_input_JPEG2000)))
                 file_name = "img{}.jp2".format(str(img_number))
             else:
                 # Sobreescriure imatge comprmida
                 file_name = "img.jp2"
-            file_path_input = os.path.join(file_path_input, file_name)
+            file_path_input_JPEG2000 = os.path.join(file_path_input_JPEG2000, file_name)
 
+
+            #Establir ruta on guardar la imatge descomprimida segons el tipus d'algoritme
+            file_path_output_JPEG2000 = os.path.join(file_path_output, "JPEG2000")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_output_JPEG2000):
+                os.makedirs(file_path_output_JPEG2000)
 
             # Assignar nom i format a la imatge descomprmida
             if self.historic == True:
                 # Guardar historic de imatges descomprimides
-                img_number = int(len(os.listdir(file_path_output)))
+                img_number = int(len(os.listdir(file_path_output_JPEG2000)))
                 file_name = "img{}.jpg".format(str(img_number))
             else:
                 # Sobreescriure imatge descomprmida
                 file_name = "img.jpg"
-            file_path_output = os.path.join(file_path_output, file_name)
+            file_path_output_JPEG2000 = os.path.join(file_path_output_JPEG2000, file_name)
 
 
             # Join the image      
-            with open(file_path_input, 'wb') as jp2file:
+            with open(file_path_input_JPEG2000, 'wb') as jp2file:
                 for b_data in msg.data:
                     jp2file.write(b_data)
 
             # Executar descompresió amb JPEG2000
-            Image.fromarray(glymur.Jp2k(file_path_input)[:]).save(file_path_output)
+            Image.fromarray(glymur.Jp2k(file_path_input_JPEG2000)[:]).save(file_path_output_JPEG2000)
             rospy.loginfo("Imatge descomprimida correctament!")
 
             # Publicar imatge al topic decompressed_image
             if self.grayscale == True:
-                img = cv2.imread(file_path_output, cv2.IMREAD_GRAYSCALE)  # Leer como imagen en escala de grises
+                img = cv2.imread(file_path_output_JPEG2000, cv2.IMREAD_GRAYSCALE)  # Leer como imagen en escala de grises
                 img_msg = self.bridge.cv2_to_imgmsg(img, "mono8")  # Convertir a mensaje de ROS como imagen de 8 bits en monocromo
             else:
-                img = cv2.imread(file_path_output, cv2.IMREAD_COLOR)  # Leer como imagen en color
+                img = cv2.imread(file_path_output_JPEG2000, cv2.IMREAD_COLOR)  # Leer como imagen en color
                 img_msg = self.bridge.cv2_to_imgmsg(img, "bgr8")  # Convertir a mensaje de ROS como imagen de 8 bits en color
             
             self.img_pub.publish(img_msg)
@@ -140,39 +154,53 @@ class Joiner:
         elif self.comp_type == "DEBT":
             rospy.loginfo("Imatge rebuda, iniciant decompresió amb DEBT!")
 
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            file_path_input_DEBT = os.path.join(file_path_input, "DEBT")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_input_DEBT):
+                os.makedirs(file_path_input_DEBT)
+
             # Assignar nom i format a la imatge comprimida
             if self.historic == True:
                 # Guardar historic de imatges comprimides
-                img_number = int(len(os.listdir(file_path_input)))
+                img_number = int(len(os.listdir(file_path_input_DEBT)))
                 file_name = "img{}.dbt".format(str(img_number))
             else:
                 # Sobreescriure imatge comprmida
                 file_name = "img.dbt"
-            file_path_input = os.path.join(file_path_input, file_name)
+            file_path_input_DEBT = os.path.join(file_path_input_DEBT, file_name)
 
+
+            #Establir ruta on guardar la imatge descomprimida segons el tipus d'algoritme
+            file_path_output_DEBT = os.path.join(file_path_output, "DEBT")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_output_DEBT):
+                os.makedirs(file_path_output_DEBT)
 
             # Assignar nom i format a la imatge descomprimida
             if self.historic == True:
                 # Guardar historic de imatges descomprimides                
-                img_number = int(len(os.listdir(file_path_output)))
+                img_number = int(len(os.listdir(file_path_output_DEBT)))
                 file_name = "img{}.pgm".format(str(img_number))
             else:
                 # Sobreescriure imatge descomprmida                
                 file_name = "img.pgm"
-            file_path_output = os.path.join(file_path_output, file_name)
+            file_path_output_DEBT = os.path.join(file_path_output_DEBT, file_name)
 
 
             # Join the image      
-            with open(file_path_input, 'wb') as dbtfile:
+            with open(file_path_input_DEBT, 'wb') as dbtfile:
                 for b_data in msg.data:
                     dbtfile.write(b_data)
 
             #Executar descompresió amb DEBT
-            run_debter(file_path_input, file_path_output, script_dir)
+            run_debter(file_path_input_DEBT, file_path_output_DEBT, script_dir)
             rospy.loginfo("Imatge descomprimida correctament!")
 
             # Publicar imatge al topic decompressed_image
-            img = cv2.imread(file_path_output, cv2.IMREAD_GRAYSCALE)  # Leer como imagen en escala de grises
+            img = cv2.imread(file_path_output_DEBT, cv2.IMREAD_GRAYSCALE)  # Leer como imagen en escala de grises
             img_msg = self.bridge.cv2_to_imgmsg(img, "mono8")  # Convertir a mensaje de ROS como imagen de 8 bits en monocromo
             self.img_pub.publish(img_msg)
             rospy.loginfo("Imatge descomprimida publicada!")
@@ -181,39 +209,53 @@ class Joiner:
         elif self.comp_type == "SPIHT":
             rospy.loginfo("Imatge rebuda, iniciant decompresió amb SPIHT!")
 
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            file_path_input_SPIHT = os.path.join(file_path_input, "SPIHT")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_input_SPIHT):
+                os.makedirs(file_path_input_SPIHT)
+
             # Assignar nom i format a la imatge comprimida
             if self.historic == True:
                 # Guardar historic de imatges comprimides
-                img_number = int(len(os.listdir(file_path_input)))
+                img_number = int(len(os.listdir(file_path_input_SPIHT)))
                 file_name = "img{}.ims".format(str(img_number))
             else:
                 # Sobreescriure imatge comprmida
                 file_name = "img.ims"
-            file_path_input = os.path.join(file_path_input, file_name)
+            file_path_input_SPIHT = os.path.join(file_path_input_SPIHT, file_name)
 
+
+            #Establir ruta on guardar la imatge descomprimida segons el tipus d'algoritme
+            file_path_output_SPIHT = os.path.join(file_path_output, "SPIHT")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_output_SPIHT):
+                os.makedirs(file_path_output_SPIHT)
 
             # Assignar nom i format a la imatge descomprimida
             if self.historic == True:
                 # Guardar historic de imatges descomprimides                
-                img_number = int(len(os.listdir(file_path_output)))
+                img_number = int(len(os.listdir(file_path_output_SPIHT)))
                 file_name = "img{}.pgm".format(str(img_number))
             else:
                 # Sobreescriure imatge descomprmida                
                 file_name = "img.pgm"
-            file_path_output = os.path.join(file_path_output, file_name)
+            file_path_output_SPIHT = os.path.join(file_path_output_SPIHT, file_name)
 
 
             # Join the image      
-            with open(file_path_input, 'wb') as imsfile:
+            with open(file_path_input_SPIHT, 'wb') as imsfile:
                 for b_data in msg.data:
                     imsfile.write(b_data)
 
             #Executar descompresió amb SPIHT
-            run_imshrinker(file_path_input, file_path_output, script_dir)
+            run_imshrinker(file_path_input_SPIHT, file_path_output_SPIHT, script_dir)
             rospy.loginfo("Imatge descomprimida correctament!")
 
             # Publicar imatge al topic decompressed_image
-            img = cv2.imread(file_path_output, cv2.IMREAD_GRAYSCALE)  # Leer como imagen en escala de grises
+            img = cv2.imread(file_path_output_SPIHT, cv2.IMREAD_GRAYSCALE)  # Leer como imagen en escala de grises
             img_msg = self.bridge.cv2_to_imgmsg(img, "mono8")  # Convertir a mensaje de ROS como imagen de 8 bits en monocromo
             self.img_pub.publish(img_msg)
             rospy.loginfo("Imatge descomprimida publicada!")

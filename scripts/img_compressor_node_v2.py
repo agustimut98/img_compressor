@@ -98,28 +98,42 @@ class ImageCompressor:
 
         # Compresió mitjançant algoritme SPIHT
         if self.comp_type == "SPIHT":
-            rospy.loginfo("Imatge rebuda, iniciant compresió amb SPIHT!") 
+            rospy.loginfo("Imatge rebuda, iniciant compresió amb SPIHT!")
+
+            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme
+            file_path_input_SPIHT = os.path.join(file_path_input, "SPIHT")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_input_SPIHT):
+                os.makedirs(file_path_input_SPIHT)
 
             # Assignar nom i format a la imatge original
             if self.historic == True:
                 # Guardar historic de imatges originals
-                img_number = int(len(os.listdir(file_path_input)))
+                img_number = int(len(os.listdir(file_path_input_SPIHT)))
                 file_name = "img{}.pgm".format(str(img_number))
             else:
                 # Sobreescriure imatge original
                 file_name = "img.pgm"
-            file_path_input = os.path.join(file_path_input, file_name)
+            file_path_input_SPIHT = os.path.join(file_path_input_SPIHT, file_name)
 
+
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            file_path_output_SPIHT = os.path.join(file_path_output, "SPIHT")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_output_SPIHT):
+                os.makedirs(file_path_output_SPIHT)
 
             # Assignar nom i format a la imatge comprimida
             if self.historic == True:
                 # Guardar historic de imatges comprimides
-                img_number = int(len(os.listdir(file_path_output)))
+                img_number = int(len(os.listdir(file_path_output_SPIHT)))
                 file_name = "img{}.ims".format(str(img_number))
             else:
                 # Sobreescriure imatge comprimida
                 file_name = "img.ims"
-            file_path_output = os.path.join(file_path_output, file_name)
+            file_path_output_SPIHT = os.path.join(file_path_output_SPIHT, file_name)
 
 
             # Passar imatge CV2 original a escala de grisos
@@ -127,17 +141,17 @@ class ImageCompressor:
             # Passar imatge CV2 en escala de grisos a PIL
             pil_image = Image.fromarray(cv_image)            
             # Guardar imatge PIL en escala de grisos
-            pil_image.save(file_path_input)
+            pil_image.save(file_path_input_SPIHT)
 
 
             #Comprimir imagen en formato .ims
-            run_imshrinker(file_path_input, file_path_output, script_dir)
+            run_imshrinker(file_path_input_SPIHT, file_path_output_SPIHT, script_dir)
             rospy.loginfo("Imatge comprimida correctament!")
 
-            if os.path.exists(file_path_output):
+            if os.path.exists(file_path_output_SPIHT):
         
                 # Leer archivo por partes y publicarlo
-                with open(file_path_output, 'rb') as imsfile:
+                with open(file_path_output_SPIHT, 'rb') as imsfile:
                     bsplit_msg = BinarySplit()
                     chunk_size = 128
                     bsplit_msg.chunk_size = chunk_size
@@ -150,36 +164,48 @@ class ImageCompressor:
                     self.img_pub.publish(bsplit_msg)
                     rospy.loginfo("Imatge comprimida publicada!") 
             else: 
-                rospy.logerr("No existeix el directori {}".format(file_path_output))
+                rospy.logerr("No existeix el directori {}".format(file_path_output_SPIHT))
 
            
 
         # Compresió mitjançant algoritme DEBT
         elif self.comp_type == "DEBT":
-
-            # Establir nom i format a la imatge comprimida
             rospy.loginfo("Imatge rebuda, iniciant compresió amb DEBT!")
+
+            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme
+            file_path_input_DEBT = os.path.join(file_path_input, "DEBT")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_input_DEBT):
+                os.makedirs(file_path_input_DEBT)
 
             # Assignar nom i format a la imatge original
             if self.historic == True:
                 # Guardar historic de imatges originals
-                img_number = int(len(os.listdir(file_path_input)))
+                img_number = int(len(os.listdir(file_path_input_DEBT)))
                 file_name = "img{}.pgm".format(str(img_number))
             else:
                 # Sobreescriure imatge original
                 file_name = "img.pgm"
-            file_path_input = os.path.join(file_path_input, file_name)
+            file_path_input_DEBT = os.path.join(file_path_input_DEBT, file_name)
 
+
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            file_path_output_DEBT = os.path.join(file_path_output, "DEBT")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_output_DEBT):
+                os.makedirs(file_path_output_DEBT)
 
             # Assignar nom i format a la imatge comprimida
             if self.historic == True:
                 # Guardar historic de imatges comprimides
-                img_number = int(len(os.listdir(file_path_output)))
+                img_number = int(len(os.listdir(file_path_output_DEBT)))
                 file_name = "img{}.dbt".format(str(img_number))
             else:
                 # Sobreescriure imatge comprimida
                 file_name = "img.dbt"
-            file_path_output = os.path.join(file_path_output, file_name)   
+            file_path_output_DEBT = os.path.join(file_path_output_DEBT, file_name)   
 
 
             # Passar imatge CV2 original a escala de grisos
@@ -187,16 +213,16 @@ class ImageCompressor:
             # Passar imatge CV2 en escala de grisos a PIL
             pil_image = Image.fromarray(cv_image)
             # Guardar imatge PIL en escala de grisos
-            pil_image.save(file_path_input)
+            pil_image.save(file_path_input_DEBT)
 
             # Comprimir imagen en formato .dbt
-            run_debter(file_path_input, file_path_output, script_dir)
+            run_debter(file_path_input_DEBT, file_path_output_DEBT, script_dir)
             rospy.loginfo("Imatge comprimida correctament!")
 
-            if os.path.exists(file_path_output):
+            if os.path.exists(file_path_output_DEBT):
                  
                 # Leer archivo por partes y publicarlo
-                with open(file_path_output, 'rb') as dbtfile:
+                with open(file_path_output_DEBT, 'rb') as dbtfile:
                     bsplit_msg = BinarySplit()
                     chunk_size = 128
                     bsplit_msg.chunk_size = chunk_size
@@ -210,33 +236,47 @@ class ImageCompressor:
                     rospy.loginfo("Imatge comprimida publicada!")
                     
             else:
-                rospy.logerr("No existeix el directori {}".format(file_path_output))
+                rospy.logerr("No existeix el directori {}".format(file_path_output_DEBT))
 
 
         # Compresió mitjançant algoritme JPEG2000
         elif self.comp_type == "JPEG2000":
             rospy.loginfo("Imatge rebuda, iniciant compresió amb JPEG2000!")
 
+            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme
+            file_path_input_JPEG2000 = os.path.join(file_path_input, "JPEG2000")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_input_JPEG2000):
+                os.makedirs(file_path_input_JPEG2000)
+
             # Assignar nom i format a la imatge original
             if self.historic == True:
                 # Guardar historic de imatges originals
-                img_number = int(len(os.listdir(file_path_input)))
+                img_number = int(len(os.listdir(file_path_input_JPEG2000)))
                 file_name = "img{}.jpg".format(str(img_number))
             else:
                 # Sobreescriure imatge original
                 file_name = "img.jpg"
-            file_path_input = os.path.join(file_path_input, file_name)
+            file_path_input_JPEG2000 = os.path.join(file_path_input_JPEG2000, file_name)
 
+
+            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme
+            file_path_output_JPEG2000 = os.path.join(file_path_output, "JPEG2000")
+
+            # Crear el directori en cas de no existir
+            if not os.path.exists(file_path_output_JPEG2000):
+                os.makedirs(file_path_output_JPEG2000)
 
             # Assignar nom i format a la imatge comprimida
             if self.historic == True:
                 # Guardar historic de imatges comprimides
-                img_number = int(len(os.listdir(file_path_output)))
+                img_number = int(len(os.listdir(file_path_output_JPEG2000)))
                 file_name = "img{}.jp2".format(str(img_number))
             else:
                 # Sobreescriure imatge comprimida
                 file_name = "img.jp2"
-            file_path_output = os.path.join(file_path_output, file_name)   
+            file_path_output_JPEG2000 = os.path.join(file_path_output_JPEG2000, file_name)   
 
 
             # Comprovar escala de grisos de la imatge CV2 original
@@ -262,18 +302,18 @@ class ImageCompressor:
             # Passar imatge CV2 a PIL
             pil_image = Image.fromarray(cv_image)
             # Guardar imatge PIL
-            pil_image.save(file_path_input)
+            pil_image.save(file_path_input_JPEG2000)
 
             # Comprimir imagen en formato .jp2
-            glymur.Jp2k(file_path_output, data=cv_image, cratios=[self.comp_ratio])
-            #self.save_jpeg2000_img(pil_image, file_path_output, self.com_ratio)
+            glymur.Jp2k(file_path_output_JPEG2000, data=cv_image, cratios=[self.comp_ratio])
+            #self.save_jpeg2000_img(pil_image, file_path_output_JPEG2000, self.com_ratio)
         
             rospy.loginfo("Imatge comprimida correctament!")
             
-            if os.path.exists(file_path_output):
+            if os.path.exists(file_path_output_JPEG2000):
 
                 # Leer archivo por partes y publicarlo
-                with open(file_path_output, 'rb') as jp2file:
+                with open(file_path_output_JPEG2000, 'rb') as jp2file:
                     bsplit_msg = BinarySplit()
                     
                     chunk_size = 128
@@ -288,7 +328,7 @@ class ImageCompressor:
                     rospy.loginfo("Imatge comprimida publicada!")
 
             else:
-                rospy.logerr("No existeix el directori {}".format(file_path_output))
+                rospy.logerr("No existeix el directori {}".format(file_path_output_JPEG2000))
 
         else: 
             rospy.logerr("Format de compressió no suportat")

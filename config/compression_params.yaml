@@ -2,13 +2,13 @@ img_compressor:
   # TIPO DE COMPRESION DE IMAGEN: JPEG2000, DEBT, SPIHT
   type: SPIHT
   # GUARDAR HISTORICO DE IMAGENES
-  historic: False
+  historic: True
   # ESCALA DE GRISES PARA JPEG2000
   grayscale: False
   # RATIO DE COMPRESION PARA JPEG2000
   ratio: 500
   # REESCALADO PARA JPEG2000
-  width: 960
-  height: 720
+  width: 0
+  height: 0
   # width: 1920
   # height: 1440
