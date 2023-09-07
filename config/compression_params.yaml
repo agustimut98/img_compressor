@@ -1,13 +1,13 @@
 img_compressor:
 
   # TIPO DE COMPRESION DE IMAGEN: JPEG2000, DEBT, SPIHT
-  type: DEBT
+  type: JPEG2000
 
   # GUARDAR HISTORICO DE IMAGENES
-  historic: True
+  historic: False
 
   # ESCALA DE GRISES
-  grayscale: False
+  grayscale: True
 
 
   # TRANSFORMADA WAVELET USADA PARA DEBT 
