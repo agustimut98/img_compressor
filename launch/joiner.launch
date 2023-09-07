@@ -6,12 +6,14 @@
     <node name="img_joiner_node" pkg="img_compressor_v2" type="img_joiner_node_v2.py" output="screen" respawn="true" >
 	
     	<!-- DIRECTORIO DE LA IMAGEN DESCOMPRIMIDA -->
-    	<param name = "outdir" value = "/home/agusti/catkin_ws/src/img_compressor_v2/scripts/joiner_decompressed_image"/>
+
+    	<!-- <param name = "outdir" value = "/home/agusti/catkin_ws/src
+        /img_compressor_v2/scripts/joiner_decompressed_image"/> -->
 
 	    <!-- REMAPEAR TOPICS -->
-        <!-- <remap from = "compressed_image" to = "/turbot/burst_acoustic" /> -->
+        <remap from = "compressed_image" to = "/turbot/burst_acoustic" />
         <!-- <remap from = "compressed_image" to = "/xiroi/burst_acoustic" /> -->
-        <!-- <remap from = "out" to = "/xiroi/decompressed_image_acoustic" /> -->
+        <remap from = "decompressed_image" to = "/xiroi/decompressed_image_acoustic" />
 
     </node>
 </launch>
