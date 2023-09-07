@@ -30,7 +30,7 @@ img_compressor_v2:
 
   # CALIDAD USADA PARA DEBT
   # Quality value (0 = max) <0.000000>
-  quality: 4
+  quality: 10
 
 
   # TASA DE BITS POR PIXEL PARA SPIHT
