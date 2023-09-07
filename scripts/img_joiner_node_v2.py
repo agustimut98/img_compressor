@@ -5,7 +5,7 @@ from time import time
 import rospy
 import os
 from sensor_msgs.msg import Image as ImageMsg
-from img_compressor.msg import BinarySplit
+from img_compressor_v2.msg import BinarySplit
 import subprocess
 import glymur
 from PIL import Image
