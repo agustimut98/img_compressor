@@ -1,10 +1,10 @@
-img_compressor:
+img_compressor_v2:
 
   # TIPO DE COMPRESION DE IMAGEN: JPEG2000, DEBT, SPIHT
-  type: JPEG2000
+  type: SPIHT
 
   # GUARDAR HISTORICO DE IMAGENES
-  historic: False
+  historic: True
 
   # ESCALA DE GRISES
   grayscale: True
@@ -30,11 +30,11 @@ img_compressor:
 
   # CALIDAD USADA PARA DEBT
   # Quality value (0 = max) <0.000000>
-  quality: 4
+  quality: 10
 
 
   # TASA DE BITS POR PIXEL PARA SPIHT
-  bpp: 0.7
+  bpp: 0.05
 
 
   # RATIO DE COMPRESION PARA JPEG2000

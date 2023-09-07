@@ -3,11 +3,11 @@
     <rosparam command="load" file="$(find img_compressor_v2)/config/compression_params.yaml"/>
 
     <!-- DECLARAR EL NODO -->
-    <node name="img_compressor_node" pkg="img_compressor_v2" type="img_compressor_node_v2.py" output="screen" respawn="true" >
+    <node name="img_compressor_v2_node" pkg="img_compressor_v2" type="img_compressor_node_v2.py" output="screen" respawn="true" >
 
 	<!-- REMAPEAR TOPICS -->
         <remap from = "original_image" to = "/stereo_down/scaled_x4/left/image_raw" />
-        <!-- <remap from = "compressed_image" to = "/cirtesu/compressed_image" /> -->
+        <!-- <remap from = "compressed_image" to = "/srv/compressed_image" /> -->
 
     </node>
 </launch>
