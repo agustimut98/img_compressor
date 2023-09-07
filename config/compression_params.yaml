@@ -34,7 +34,7 @@ img_compressor_v2:
 
 
   # TASA DE BITS POR PIXEL PARA SPIHT
-  bpp: 0.05
+  bpp: 0.1
 
 
   # RATIO DE COMPRESION PARA JPEG2000
