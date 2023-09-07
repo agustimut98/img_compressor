@@ -56,9 +56,9 @@ class ImageCompressor:
             self.comp_type = rospy.get_param(img_compressor_v2_type) 
 
         self.historic = True
-        img_compressor_historic = "/img_compressor/historic"
-        if rospy.has_param(img_compressor_historic):
-            self.historic = rospy.get_param(img_compressor_historic)
+        img_compressor_v2_historic = "/img_compressor_v2/historic"
+        if rospy.has_param(img_compressor_v2_historic):
+            self.historic = rospy.get_param(img_compressor_v2_historic)
 
         self.grayscale = False
         img_compressor_v2_grayscale = "/img_compressor_v2/grayscale"
@@ -67,35 +67,35 @@ class ImageCompressor:
 
 
         self.transform = "cdf-9/7"
-        img_compressor_transform = "/img_compressor/transform"
-        if rospy.has_param(img_compressor_transform):
-            self.transform = rospy.get_param(img_compressor_transform)
+        img_compressor_v2_transform = "/img_compressor_v2/transform"
+        if rospy.has_param(img_compressor_v2_transform):
+            self.transform = rospy.get_param(img_compressor_v2_transform)
 
         self.nbands = 6
-        img_compressor_nbands = "/img_compressor/nbands"
-        if rospy.has_param(img_compressor_nbands):
-            self.nbands = rospy.get_param(img_compressor_nbands)   
+        img_compressor_v2_nbands = "/img_compressor_v2/nbands"
+        if rospy.has_param(img_compressor_v2_nbands):
+            self.nbands = rospy.get_param(img_compressor_v2_nbands)   
 
         self.method = 2
-        img_compressor_method = "/img_compressor/method"
-        if rospy.has_param(img_compressor_method):
-            self.method = rospy.get_param(img_compressor_method)
+        img_compressor_v2_method = "/img_compressor_v2/method"
+        if rospy.has_param(img_compressor_v2_method):
+            self.method = rospy.get_param(img_compressor_v2_method)
 
         self.log = 1
-        img_compressor_log = "/img_compressor/log"
-        if rospy.has_param(img_compressor_log):
-            self.log = rospy.get_param(img_compressor_log)
+        img_compressor_v2_log = "/img_compressor_v2/log"
+        if rospy.has_param(img_compressor_v2_log):
+            self.log = rospy.get_param(img_compressor_v2_log)
 
         self.quality = 4
-        img_compressor_quality = "/img_compressor/quality"
-        if rospy.has_param(img_compressor_quality):
-            self.quality = rospy.get_param(img_compressor_quality)
+        img_compressor_v2_quality = "/img_compressor_v2/quality"
+        if rospy.has_param(img_compressor_v2_quality):
+            self.quality = rospy.get_param(img_compressor_v2_quality)
 
 
         self.bpp = 0.5
-        img_compressor_bpp = "/img_compressor/bpp"
-        if rospy.has_param(img_compressor_bpp):
-            self.bpp = rospy.get_param(img_compressor_bpp)
+        img_compressor_v2_bpp = "/img_compressor_v2/bpp"
+        if rospy.has_param(img_compressor_v2_bpp):
+            self.bpp = rospy.get_param(img_compressor_v2_bpp)
 
 
         self.comp_ratio = 500

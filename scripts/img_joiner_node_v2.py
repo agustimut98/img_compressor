@@ -44,19 +44,19 @@ class Joiner:
         self.img_pub = rospy.Publisher("decompressed_image", ImageMsg, queue_size = 10)
 
         self.comp_type = "JPEG2000"
-        img_compressor_type = "/img_compressor_v2/type"
-        if rospy.has_param(img_compressor_type):
-            self.comp_type = rospy.get_param(img_compressor_type)
+        img_compressor_v2_type = "/img_compressor_v2/type"
+        if rospy.has_param(img_compressor_v2_type):
+            self.comp_type = rospy.get_param(img_compressor_v2_type)
 
         self.historic = True
-        img_compressor_historic = "/img_compressor/historic"
-        if rospy.has_param(img_compressor_historic):
-            self.historic = rospy.get_param(img_compressor_historic)
+        img_compressor_v2_historic = "/img_compressor_v2/historic"
+        if rospy.has_param(img_compressor_v2_historic):
+            self.historic = rospy.get_param(img_compressor_v2_historic)
 
         self.grayscale = False
-        img_compressor_grayscale = "/img_compressor/grayscale"
-        if rospy.has_param(img_compressor_grayscale):
-            self.grayscale = rospy.get_param(img_compressor_grayscale)
+        img_compressor_v2_grayscale = "/img_compressor_v2/grayscale"
+        if rospy.has_param(img_compressor_v2_grayscale):
+            self.grayscale = rospy.get_param(img_compressor_v2_grayscale)
 
 
         ''' Exemple de com establir rutes amb parametres del launch
