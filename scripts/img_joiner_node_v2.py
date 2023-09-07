@@ -139,15 +139,15 @@ class Joiner:
             #img = cv2.imwrite(file_path_output)
 
             # Executar descompresió amb JPEG2000
-            Image.fromarray(glymur.Jp2k(file_path_input_JPEG2000)[:]).save(file_path_output_JPEG2000)
-            rospy.loginfo("Imatge descomprimida correctament!")
+            #Image.fromarray(glymur.Jp2k(file_path_input_JPEG2000)[:]).save(file_path_output_JPEG2000)
+            #rospy.loginfo("Imatge descomprimida correctament!")
 
             # Publicar imatge al topic decompressed_image
             if self.grayscale == True:
-                img = cv2.imread(file_path_output_JPEG2000, cv2.IMREAD_GRAYSCALE)  # Leer como imagen en escala de grises
+                img = cv2.imread(file_path_intput_JPEG2000, cv2.IMREAD_GRAYSCALE)  # Leer como imagen en escala de grises
                 img_msg = self.bridge.cv2_to_imgmsg(img, "mono8")  # Convertir a mensaje de ROS como imagen de 8 bits en monocromo
             else:
-                img = cv2.imread(file_path_output_JPEG2000, cv2.IMREAD_COLOR)  # Leer como imagen en color
+                img = cv2.imread(file_path_input_JPEG2000, cv2.IMREAD_COLOR)  # Leer como imagen en color
                 img_msg = self.bridge.cv2_to_imgmsg(img, "bgr8")  # Convertir a mensaje de ROS como imagen de 8 bits en color
             
             self.img_pub.publish(img_msg)

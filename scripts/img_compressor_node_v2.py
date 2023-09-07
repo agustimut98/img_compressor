@@ -5,13 +5,7 @@ from time import time
 import rospy
 import cv2 as cv
 from sensor_msgs.msg import Image as ImageMsg
-<<<<<<< HEAD
 from img_compressor_v2.msg import BinarySplit
-#from mine_detection.msg import det
-#from mine_detection.msg import mine_detections
-=======
-from img_compressor.msg import BinarySplit
->>>>>>> local
 from cv_bridge import CvBridge
 from PIL import Image
 # import glymur
@@ -361,11 +355,11 @@ class ImageCompressor:
             # Passar imatge CV2 a PIL
             pil_image = Image.fromarray(cv_image)
             # Guardar imatge PIL
-            pil_image.save(file_path_input_JPEG2000)
+            #pil_image.save(file_path_input_JPEG2000)
 
             # Comprimir imagen en formato .jp2
-            glymur.Jp2k(file_path_output_JPEG2000, data=cv_image, cratios=[self.comp_ratio])
-            #self.save_jpeg2000_img(pil_image, file_path_output_JPEG2000, self.comp_ratio)
+            #glymur.Jp2k(file_path_output_JPEG2000, data=cv_image, cratios=[self.comp_ratio])
+            self.save_jpeg2000_img(pil_image, file_path_output_JPEG2000, self.comp_ratio)
         
             rospy.loginfo("Imatge comprimida correctament!")
             
@@ -392,8 +386,8 @@ class ImageCompressor:
         else: 
             rospy.logerr("Format de compressió no suportat")
 
-    # def save_jpeg2000_img(self, img, img_path, ratio):
-    #     img.save(img_path, quality_mode="rates", quality_layers=[ratio])
+    def save_jpeg2000_img(self, img, img_path, ratio):
+        img.save(img_path, quality_mode="rates", quality_layers=[ratio])
 
 def main():
     rospy.init_node("compressor", anonymous=True, disable_signals=True)
