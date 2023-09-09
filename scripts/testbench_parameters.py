@@ -95,9 +95,7 @@ def main():
                 formato_imagen = "pgm"
                 formato_compresion = "ims"
 
-                
-
-                RUTA_IMAGEN_A = "compressor_original_image/{}/img0.{}".format(key, formato_imagen)
+                RUTA_IMAGEN_A = "compressor_original_image/{}/img.{}".format(key, formato_imagen)
                 RUTA_IMAGEN_B = "joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
                 RUTA_IMAGEN_C = "compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
 
@@ -112,14 +110,13 @@ def main():
                 if image1.shape != image2.shape:
                     rospy.loginfo("Las imágenes deben tener las mismas dimensiones.")
                     exit()
-
                
 
             elif key == "DEBT":
                 formato_imagen = "pgm"
                 formato_compresion = "dbt"
 
-                RUTA_IMAGEN_A = "compressor_original_image/{}/img0.{}".format(key,formato_imagen)
+                RUTA_IMAGEN_A = "compressor_original_image/{}/img.{}".format(key,formato_imagen)
                 RUTA_IMAGEN_B = "joiner_decompressed_image/{}/img{}.{}".format(key, cont,formato_imagen)
                 RUTA_IMAGEN_C = "compressor_compressed_image/{}/img{}.{}".format(key, cont,formato_compresion)
 
@@ -136,12 +133,11 @@ def main():
                     exit()
 
                 
-
             elif key == "JPEG2000":
                 formato_imagen = "jpg"
                 formato_compresion = "jp2"
 
-                RUTA_IMAGEN_A = "compressor_original_image/{}/img0.{}".format(key,formato_imagen)
+                RUTA_IMAGEN_A = "compressor_original_image/{}/img.{}".format(key, formato_imagen)
                 RUTA_IMAGEN_B = "joiner_decompressed_image/{}/img{}.{}".format(key, cont,formato_imagen)
                 RUTA_IMAGEN_C = "compressor_compressed_image/{}/img{}.{}".format(key, cont,formato_compresion)
                 

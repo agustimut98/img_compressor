@@ -142,7 +142,7 @@ class Joiner:
 
             # Publicar imatge al topic decompressed_image
             if self.grayscale == True:
-                img = cv2.imread(file_path_intput_JPEG2000, cv2.IMREAD_GRAYSCALE)  # Leer como imagen en escala de grises
+                img = cv2.imread(file_path_input_JPEG2000, cv2.IMREAD_GRAYSCALE)  # Leer como imagen en escala de grises
                 img_msg = self.bridge.cv2_to_imgmsg(img, "mono8")  # Convertir a mensaje de ROS como imagen de 8 bits en monocromo
             else:
                 img = cv2.imread(file_path_input_JPEG2000, cv2.IMREAD_COLOR)  # Leer como imagen en color
