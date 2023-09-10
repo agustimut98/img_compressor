@@ -70,21 +70,22 @@ def mse(imageA, imageB):
 
 
 def main():
-    rospy.init_node('compression_tester')
+    rospy.init_node('img_calibrator', anonymous=True)
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     compression_params = {
-        # 'SPIHT': [0.1], 'DEBT': [10], 'JPEG2000': [500]
+        # Valors calibracio piscina
+        # 'SPIHT': [0.1], 'DEBT': [10], 'JPEG2000': [400]
+
+        # Valors calibracio bagfile
+        # 'SPIHT': [0.16], 'DEBT': [10], 'JPEG2000': [185]
+
 
         'SPIHT': [0.025, 0.05, 0.1,0.14,0.15,0.155,0.16, 0.17, 0.18, 0.19,0.2, 0.4, 0.8], 
         'DEBT': [ 0.5, 1, 2, 4, 8, 10,  16 ],
-        'JPEG2000': [15.625, 31.25, 62.5, 125,150, 175,185, 200, 225,250,285, 500]
+        'JPEG2000': [15.625, 31.25, 62.5, 125,150, 175,185, 200, 225,250,285, 300, 350, 400, 450, 500]
     }
 
-    print(compression_params)
-    print (compression_params.keys())
-    for key in compression_params.keys():
-        print(key)
         
     for key in compression_params.keys():
         cont = 0
@@ -95,11 +96,9 @@ def main():
                 formato_imagen = "pgm"
                 formato_compresion = "ims"
 
-                
-
-                RUTA_IMAGEN_A = "compressor_original_image/{}/img0.{}".format(key, formato_imagen)
-                RUTA_IMAGEN_B = "joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
-                RUTA_IMAGEN_C = "compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
+                RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
+                RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
+                RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
 
                 run_imshrinker_compression(RUTA_IMAGEN_A, RUTA_IMAGEN_C, script_dir, element)
                 run_imshrinker_decompression(RUTA_IMAGEN_C, RUTA_IMAGEN_B, script_dir)
@@ -113,15 +112,14 @@ def main():
                     rospy.loginfo("Las imágenes deben tener las mismas dimensiones.")
                     exit()
 
-               
-
+            
             elif key == "DEBT":
                 formato_imagen = "pgm"
                 formato_compresion = "dbt"
 
-                RUTA_IMAGEN_A = "compressor_original_image/{}/img0.{}".format(key,formato_imagen)
-                RUTA_IMAGEN_B = "joiner_decompressed_image/{}/img{}.{}".format(key, cont,formato_imagen)
-                RUTA_IMAGEN_C = "compressor_compressed_image/{}/img{}.{}".format(key, cont,formato_compresion)
+                RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
+                RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
+                RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
 
                 run_debter_compression(RUTA_IMAGEN_A, RUTA_IMAGEN_C, script_dir, element, 0, 2, 6, "cdf-9/7")
                 run_debter_decompression(RUTA_IMAGEN_C, RUTA_IMAGEN_B, script_dir)
@@ -135,15 +133,14 @@ def main():
                     rospy.loginfo("Las imágenes deben tener las mismas dimensiones.")
                     exit()
 
-                
 
             elif key == "JPEG2000":
                 formato_imagen = "jpg"
                 formato_compresion = "jp2"
 
-                RUTA_IMAGEN_A = "compressor_original_image/{}/img0.{}".format(key,formato_imagen)
-                RUTA_IMAGEN_B = "joiner_decompressed_image/{}/img{}.{}".format(key, cont,formato_imagen)
-                RUTA_IMAGEN_C = "compressor_compressed_image/{}/img{}.{}".format(key, cont,formato_compresion)
+                RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
+                RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
+                RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
                 
                 cv_image = cv2.imread(RUTA_IMAGEN_A)
                 # Comprimir imagen en formato .jp2
@@ -159,6 +156,9 @@ def main():
                 if image1.shape != image2.shape:
                     rospy.loginfo("Las imágenes deben tener las mismas dimensiones.")
                     exit()
+
+            rospy.loginfo("Algoritmo usado: {}".format(key))
+            rospy.loginfo("Parametro de compresion: {}".format(element))
 
             # Calcula el MSE
             error = mse(image1, image2)
@@ -178,18 +178,21 @@ def main():
                 if (compressed_size >= 1024):
                     compressed_size /= 1024
                     units = "MB"
-            rospy.loginfo("El tamaño de la imagen comprimida es de : {} {}".format(compressed_size, units))
+            rospy.loginfo("El tamaño de la imagen comprimida es de : {:.2f} {} \n".format(compressed_size, units))
 
             with open('testbench.txt', 'a') as archivo:
-                archivo.write("algoritmo: {} ".format(key))
-                archivo.write("parameter: {} ".format(element))
+                archivo.write("algoritmo: {}   ".format(key))
+                archivo.write("parameter: {}   ".format(element))
 
-                archivo.write("MSE: {} ".format(error))
-                archivo.write("RMSE: {} ".format(rmse))
-                archivo.write("Size: {} {}\n \n".format(compressed_size, units))
+                archivo.write("MSE: {:.2f}   ".format(error))
+                archivo.write("RMSE: {:.2f}   ".format(rmse))
+                archivo.write("Size: {:.2f} {}   \n \n".format(compressed_size, units))
 
             cont += 1
-
         
-if __name__ == '__main__':
+        with open('testbench.txt', 'a') as archivo:
+            archivo.write("\n \n")
+
+
+if __name__ == "__main__":
     main()
