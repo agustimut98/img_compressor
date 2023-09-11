@@ -1,0 +1,7 @@
+<launch>
+
+    <!-- DECLARAR EL NODO -->
+    <node name="img_calibrator_node" pkg="img_compressor_v2" type="img_calibrator.py" output="screen" respawn="false" >
+
+    </node>
+</launch>

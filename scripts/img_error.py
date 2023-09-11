@@ -9,26 +9,36 @@ import numpy as np
 # Inicializar el nodo
 rospy.init_node('img_error', anonymous=True)
 
-algritmo = "DEBT"
+algoritmo = "DEBT"
 img_compressor_type = "/img_compressor_v2/type"
 if rospy.has_param(img_compressor_type):
     algoritmo = rospy.get_param(img_compressor_type)
 
-if algoritmo == SPIHT:
+if algoritmo == "SPIHT":
     formato_imagen = "pgm"
-    formato formato_compresion = "ims"
+    formato_compresion = "ims"
 
-elif algoritmo == DEBT:
+elif algoritmo == "DEBT":
     formato_imagen = "pgm"
-    formato formato_compresion = "dbt"
+    formato_compresion = "dbt"
 
-elif algoritmo == JPEG2000:
+elif algoritmo == "JPEG2000":
     formato_imagen = "jpg"
-    formato formato_compresion = "jp2"
+    formato_compresion = "jp2"
 
-RUTA_IMAGEN_A = "compressor_original_image/{}/img0.{}".format(algoritmo, formato_imagen)
-RUTA_IMAGEN_B = "joiner_decompressed_image/{}/img0.{}".format(algoritmo, formato_imagen)
-RUTA_IMAGEN_C = "compressor_compressed_image/{}/img0.{}".format(algoritmo, formato_compresion)
+script_dir = os.path.dirname(os.path.abspath(__file__)) 
+
+RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(algoritmo, formato_imagen)
+RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img0.{}".format(algoritmo, formato_imagen)
+RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img0.{}".format(algoritmo, formato_compresion)
+
+if not os.path.exists(RUTA_IMAGEN_A):
+    rospy.loginfo("Revisar ruta de la imagen original")
+if not os.path.exists(RUTA_IMAGEN_B):
+    rospy.loginfo("Revisar ruta de la imagen decomprimida")
+if not os.path.exists(RUTA_IMAGEN_C):
+    rospy.loginfo("Revisar ruta de la imagen comprimida")    
+
 
 def mse(imageA, imageB):
     # Calcula el error cuadrático medio entre dos imágenes
@@ -63,4 +73,4 @@ if (compressed_size >= 1024):
     if (compressed_size >= 1024):
         compressed_size /= 1024
         units = "MB"
-rospy.loginfo("El tamaño de la imagen comprimida es de : {} {}".format(compressed_size, units))
+rospy.loginfo("El tamaño de la imagen comprimida es de : {:.2f} {}".format(compressed_size, units))

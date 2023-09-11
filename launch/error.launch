@@ -3,7 +3,7 @@
     <rosparam command="load" file="$(find img_compressor_v2)/config/compression_params.yaml"/>
 
     <!-- DECLARAR EL NODO -->
-    <node name="img_error_node" pkg="img_compressor_v2" type="img_error.py" output="screen" respawn="true" >
+    <node name="img_error_node" pkg="img_compressor_v2" type="img_error.py" output="screen" respawn="false" >
 
     </node>
 </launch>
