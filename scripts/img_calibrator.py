@@ -96,9 +96,13 @@ def main():
                 formato_imagen = "pgm"
                 formato_compresion = "ims"
 
-                RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
-                RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
-                RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
+                RUTA_IMAGEN_A = "/home/agusti/Descargas/img0_bagfile.pgm"
+                RUTA_IMAGEN_B = "/home/agusti/Descargas/test/img0_bagfile.pgm"
+                RUTA_IMAGEN_C = "/home/agusti/Descargas/test/img0_bagfile.ims"
+
+                #RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
+                #RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
+                #RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
 
                 run_imshrinker_compression(RUTA_IMAGEN_A, RUTA_IMAGEN_C, script_dir, element)
                 run_imshrinker_decompression(RUTA_IMAGEN_C, RUTA_IMAGEN_B, script_dir)
@@ -117,9 +121,13 @@ def main():
                 formato_imagen = "pgm"
                 formato_compresion = "dbt"
 
-                RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
-                RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
-                RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
+                RUTA_IMAGEN_A = "/home/agusti/Descargas/img0_bagfile.pgm"
+                RUTA_IMAGEN_B = "/home/agusti/Descargas/test/img0_bagfile.pgm"
+                RUTA_IMAGEN_C = "/home/agusti/Descargas/test/img0_bagfile.dbt"
+
+                #RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
+                #RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
+                #RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
 
                 run_debter_compression(RUTA_IMAGEN_A, RUTA_IMAGEN_C, script_dir, element, 0, 2, 6, "cdf-9/7")
                 run_debter_decompression(RUTA_IMAGEN_C, RUTA_IMAGEN_B, script_dir)
@@ -138,9 +146,13 @@ def main():
                 formato_imagen = "jpg"
                 formato_compresion = "jp2"
 
-                RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
-                RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
-                RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
+                RUTA_IMAGEN_A = "/home/agusti/Descargas/img0_bagfile.pgm"
+                RUTA_IMAGEN_B = "/home/agusti/Descargas/test/img0_bagfile.pgm"
+                RUTA_IMAGEN_C = "/home/agusti/Descargas/test/img0_bagfile.jp2"
+
+                #RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
+                #RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
+                #RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
                 
                 cv_image = cv2.imread(RUTA_IMAGEN_A)
                 # Comprimir imagen en formato .jp2
@@ -180,7 +192,7 @@ def main():
                     units = "MB"
             rospy.loginfo("El tamaño de la imagen comprimida es de : {:.2f} {} \n".format(compressed_size, units))
 
-            with open('testbench.txt', 'a') as archivo:
+            with open(script_dir +'/testbench.txt', 'a') as archivo:
                 archivo.write("algoritmo: {}   ".format(key))
                 archivo.write("parameter: {}   ".format(element))
 

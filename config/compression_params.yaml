@@ -1,7 +1,7 @@
 img_compressor_v2:
 
   # TIPO DE COMPRESION DE IMAGEN: JPEG2000, DEBT, SPIHT
-  type: JPEG2000
+  type: DEBT
 
   # GUARDAR HISTORICO DE IMAGENES
   historic: True

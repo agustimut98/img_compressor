@@ -1,0 +1,72 @@
+algoritmo: DEBT   parameter: 0.5   MSE: 0.35   RMSE: 0.60   Size: 64.13 kB   
+ 
+algoritmo: DEBT   parameter: 1   MSE: 1.04   RMSE: 1.02   Size: 43.06 kB   
+ 
+algoritmo: DEBT   parameter: 2   MSE: 3.05   RMSE: 1.75   Size: 25.12 kB   
+ 
+algoritmo: DEBT   parameter: 4   MSE: 7.96   RMSE: 2.82   Size: 12.49 kB   
+ 
+algoritmo: DEBT   parameter: 8   MSE: 17.52   RMSE: 4.19   Size: 5.48 kB   
+ 
+algoritmo: DEBT   parameter: 10   MSE: 32.96   RMSE: 5.74   Size: 2.27 kB   
+ 
+algoritmo: DEBT   parameter: 16   MSE: 57.84   RMSE: 7.61   Size: 856.00 B   
+ 
+algoritmo: SPIHT   parameter: 0.025   MSE: 140.47   RMSE: 11.85   Size: 592.00 B   
+ 
+algoritmo: SPIHT   parameter: 0.05   MSE: 82.57   RMSE: 9.09   Size: 1.14 kB   
+ 
+algoritmo: SPIHT   parameter: 0.1   MSE: 47.93   RMSE: 6.92   Size: 2.27 kB   
+ 
+algoritmo: SPIHT   parameter: 0.14   MSE: 35.28   RMSE: 5.94   Size: 3.17 kB   
+ 
+algoritmo: SPIHT   parameter: 0.15   MSE: 33.86   RMSE: 5.82   Size: 3.39 kB   
+ 
+algoritmo: SPIHT   parameter: 0.155   MSE: 33.24   RMSE: 5.77   Size: 3.50 kB   
+ 
+algoritmo: SPIHT   parameter: 0.16   MSE: 32.81   RMSE: 5.73   Size: 3.62 kB   
+ 
+algoritmo: SPIHT   parameter: 0.17   MSE: 31.68   RMSE: 5.63   Size: 3.84 kB   
+ 
+algoritmo: SPIHT   parameter: 0.18   MSE: 30.81   RMSE: 5.55   Size: 4.07 kB   
+ 
+algoritmo: SPIHT   parameter: 0.19   MSE: 29.88   RMSE: 5.47   Size: 4.29 kB   
+ 
+algoritmo: SPIHT   parameter: 0.2   MSE: 29.33   RMSE: 5.42   Size: 4.52 kB   
+ 
+algoritmo: SPIHT   parameter: 0.4   MSE: 16.19   RMSE: 4.02   Size: 9.02 kB   
+ 
+algoritmo: SPIHT   parameter: 0.8   MSE: 8.03   RMSE: 2.83   Size: 18.02 kB   
+ 
+algoritmo: JPEG2000   parameter: 15.625   MSE: 2.59   RMSE: 1.61   Size: 32.19 kB   
+ 
+algoritmo: JPEG2000   parameter: 31.25   MSE: 6.95   RMSE: 2.64   Size: 16.15 kB   
+ 
+algoritmo: JPEG2000   parameter: 62.5   MSE: 14.36   RMSE: 3.79   Size: 8.05 kB   
+ 
+algoritmo: JPEG2000   parameter: 125   MSE: 26.10   RMSE: 5.11   Size: 3.86 kB   
+ 
+algoritmo: JPEG2000   parameter: 150   MSE: 28.72   RMSE: 5.36   Size: 3.37 kB   
+ 
+algoritmo: JPEG2000   parameter: 175   MSE: 33.09   RMSE: 5.75   Size: 2.83 kB   
+ 
+algoritmo: JPEG2000   parameter: 185   MSE: 33.63   RMSE: 5.80   Size: 2.75 kB   
+ 
+algoritmo: JPEG2000   parameter: 200   MSE: 36.31   RMSE: 6.03   Size: 2.46 kB   
+ 
+algoritmo: JPEG2000   parameter: 225   MSE: 38.36   RMSE: 6.19   Size: 2.24 kB   
+ 
+algoritmo: JPEG2000   parameter: 250   MSE: 41.00   RMSE: 6.40   Size: 2.04 kB   
+ 
+algoritmo: JPEG2000   parameter: 285   MSE: 44.84   RMSE: 6.70   Size: 1.76 kB   
+ 
+algoritmo: JPEG2000   parameter: 300   MSE: 45.70   RMSE: 6.76   Size: 1.70 kB   
+ 
+algoritmo: JPEG2000   parameter: 350   MSE: 49.98   RMSE: 7.07   Size: 1.45 kB   
+ 
+algoritmo: JPEG2000   parameter: 400   MSE: 58.57   RMSE: 7.65   Size: 1.15 kB   
+ 
+algoritmo: JPEG2000   parameter: 450   MSE: 59.18   RMSE: 7.69   Size: 1.13 kB   
+ 
+algoritmo: JPEG2000   parameter: 500   MSE: 62.77   RMSE: 7.92   Size: 1.02 kB   
+ 
