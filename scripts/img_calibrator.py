@@ -106,10 +106,6 @@ def main():
 
                 if not os.path.exists(RUTA_IMAGEN_A):
                     rospy.loginfo("Revisar ruta de la imagen original")
-                if not os.path.exists(RUTA_IMAGEN_B):
-                    rospy.loginfo("Revisar ruta de la imagen decomprimida")
-                if not os.path.exists(RUTA_IMAGEN_C):
-                    rospy.loginfo("Revisar ruta de la imagen comprimida") 
 
                 run_imshrinker_compression(RUTA_IMAGEN_A, RUTA_IMAGEN_C, script_dir, element)
                 run_imshrinker_decompression(RUTA_IMAGEN_C, RUTA_IMAGEN_B, script_dir)
@@ -137,11 +133,7 @@ def main():
                 #RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
 
                 if not os.path.exists(RUTA_IMAGEN_A):
-                    rospy.loginfo("Revisar ruta de la imagen original")
-                if not os.path.exists(RUTA_IMAGEN_B):
-                    rospy.loginfo("Revisar ruta de la imagen decomprimida")
-                if not os.path.exists(RUTA_IMAGEN_C):
-                    rospy.loginfo("Revisar ruta de la imagen comprimida") 
+                    rospy.loginfo("Revisar ruta de la imagen original") 
 
                 run_debter_compression(RUTA_IMAGEN_A, RUTA_IMAGEN_C, script_dir, element, 0, 2, 6, "cdf-9/7")
                 run_debter_decompression(RUTA_IMAGEN_C, RUTA_IMAGEN_B, script_dir)
@@ -170,10 +162,6 @@ def main():
                 
                 if not os.path.exists(RUTA_IMAGEN_A):
                     rospy.loginfo("Revisar ruta de la imagen original")
-                if not os.path.exists(RUTA_IMAGEN_B):
-                    rospy.loginfo("Revisar ruta de la imagen decomprimida")
-                if not os.path.exists(RUTA_IMAGEN_C):
-                    rospy.loginfo("Revisar ruta de la imagen comprimida") 
 
                 cv_image = cv2.imread(RUTA_IMAGEN_A)
                 # Comprimir imagen en formato .jp2
