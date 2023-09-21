@@ -1,0 +1,57 @@
+usage: debter (-d|-e)[options] < infile > outfile
+Options:
+	-v [0|1]         - Use vector instructions if possible <1>
+
+Decoding: -d
+	-b [bias]        - Bias used when decoding (default, zero, mid, exp, midexp) <none>
+	-a [bias weight] - Bias weight to use with bias <1.000000>
+	-c [size]        - Truncate input file to [size] bytes <0>
+
+Encoding: -e
+	-t transform     - Wavelet used (CDF-9/7, NCDF-9/7) and (5/3, 9/3, 9/7, 13/7, haar) <ibior-13/7>
+	-n nbands        - Number of transformations <6>
+	-k depth         - Decompose for depth <= otherwise partition <0>
+	-y val           - Dynamic decomposition/partition <0>
+	-r class         - Statistics class to use <0>
+	-m scale         - Scale coefficients <0>
+	-q quality       - Quality value (0 = max) <0.000000>
+	-u resolution    - Resolution order <0>
+	-o sort          - Sort significant list <0>
+	-x maxsize       - Truncate output at maxsize bytes <0>
+
+	-p pad           - Pad codes when mapping <0>
+	-s esc           - Escape 0xff on output stream <0>
+
+	-l left-shift    - ROI left shift <0>
+	-i x0,y0,x1,y1   - ROI rectangle (Top-Left and Bottom-Right) (repeat)
+
+	-h               - Benchmark <0>
+	-f               - Print encoding statistics <0>
+
+Obs:
+
+The -r option is composed of:
+
+-r 0 : Uniform for LL and Laplace for HL+LH+HH
+-r 1 : Uniform for LL+HL+LH+HH
+-r 2 : Uniform for LL + calculated exponential power distribution for HL+LH+HH
+-r 3 : Uniform for LL + calculates exponential power distributions for HL+LH and HH
+-r 4 : Uniform for LL + calculates exponential power distributions for HL, LH, and HH
+
+Example:
+
+Encode:	
+# ./debter -t cdf-9/7 -r 2 -q 4 -f 1 < lena.pgm > lena.dbt 2> log.txt
+
+Decode:
+# ./debter -d < lena.dbt > dlena.pgm
+
+Convert images to squared dimensions changing the format: 
+
+convert 422.png -resize 512x512! 422_new.png
+
+paper complementario: 
+Wireless HROV Control with Compressed Visual Feedback Using Acoustic and RF Links
+Diego Centelles1 · Antonio Soriano2 · Raul Marin1 · Pedro J. Sanz1
+
+
