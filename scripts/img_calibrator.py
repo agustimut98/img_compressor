@@ -119,7 +119,7 @@ def main():
                     rospy.loginfo("Las imágenes deben tener las mismas dimensiones.")
                     exit()
 
-            
+
             elif key == "DEBT":
                 formato_imagen = "pgm"
                 formato_compresion = "dbt"
