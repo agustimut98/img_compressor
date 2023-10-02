@@ -65,10 +65,6 @@ class ImageError():
             RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img.{}".format(self.algoritmo, self.formato_imagen)
             RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img.{}".format(self.algoritmo, self.formato_compresion)
 
-        #RUTA_IMAGEN_A = "/home/agusti/Descargas/img0_bagfile.pgm"
-        #RUTA_IMAGEN_B = "/home/agusti/Descargas/test/img0_bagfile.pgm"
-        #RUTA_IMAGEN_C = "/home/agusti/Descargas/test/img0_bagfile.ims" 
-
         if not os.path.exists(RUTA_IMAGEN_A):
             rospy.loginfo("Revisar ruta de la imagen original")
         if not os.path.exists(RUTA_IMAGEN_B):
