@@ -17,13 +17,14 @@ def publish_image():
     bridge = CvBridge()
     
     # Leer la imagen usando OpenCV
-    # Ruta de la imatge /home/agusti/Descargas/TFM/ICVV-2017_DEBT/proves_anteriors/38.jpg
-    img = cv2.imread('/home/agusti/Descargas/TFM/ICVV-2017_DEBT/proves_anteriors/38.jpg', 1) # 1 para leer imagen a color
-    
+    # Ruta de la imatge inicial /home/agusti/Descargas/TFM/ICVV-2017_DEBT/proves_anteriors/38.jpg
+    img = cv2.imread('/home/agusti/Descargas/img_pool.pgm')
+    # img = cv2.imread('/home/agusti/Descargas/TFM/ICVV-2017_DEBT/proves_anteriors/38.jpg') 
+
     # Convertir la imagen de OpenCV a un mensaje de ROS
     img_msg = bridge.cv2_to_imgmsg(img, "bgr8")
     
-    rate = rospy.Rate(0.03) # Publicar cada 30 segundos
+    rate = rospy.Rate(0.2) # Publicar cada 5 segundos
 
     while not rospy.is_shutdown():
 

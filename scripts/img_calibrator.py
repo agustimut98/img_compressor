@@ -82,7 +82,7 @@ def main():
 
 
         'SPIHT': [0.025, 0.05, 0.1,0.14,0.15,0.155,0.16, 0.17, 0.18, 0.19,0.2, 0.4, 0.8], 
-        'DEBT': [ 0.5, 1, 2, 4, 8, 10,  16 ],
+        'DEBT': [ 0.5, 1, 2, 4, 5, 6, 7, 8, 10,  16 ],
         'JPEG2000': [15.625, 31.25, 62.5, 125,150, 175,185, 200, 225,250,285, 300, 350, 400, 450, 500]
     }
 
@@ -96,13 +96,13 @@ def main():
                 formato_imagen = "pgm"
                 formato_compresion = "ims"
 
-                RUTA_IMAGEN_A = "/home/agusti/Descargas/img0_bagfile.pgm"
-                RUTA_IMAGEN_B = "/home/agusti/Descargas/test/img0_bagfile.pgm"
-                RUTA_IMAGEN_C = "/home/agusti/Descargas/test/img0_bagfile.ims"
+                #RUTA_IMAGEN_A = "/home/agusti/Descargas/img0_bagfile.pgm"
+                #RUTA_IMAGEN_B = "/home/agusti/Descargas/test/img0_bagfile.pgm"
+                #RUTA_IMAGEN_C = "/home/agusti/Descargas/test/img0_bagfile.ims"
 
-                #RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
-                #RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
-                #RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
+                RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
+                RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
+                RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
 
                 if not os.path.exists(RUTA_IMAGEN_A):
                     rospy.loginfo("Revisar ruta de la imagen original")
@@ -124,13 +124,13 @@ def main():
                 formato_imagen = "pgm"
                 formato_compresion = "dbt"
 
-                RUTA_IMAGEN_A = "/home/agusti/Descargas/img0_bagfile.pgm"
-                RUTA_IMAGEN_B = "/home/agusti/Descargas/test/img0_bagfile.pgm"
-                RUTA_IMAGEN_C = "/home/agusti/Descargas/test/img0_bagfile.dbt"
+                #RUTA_IMAGEN_A = "/home/agusti/Descargas/img0_bagfile.pgm"
+                #RUTA_IMAGEN_B = "/home/agusti/Descargas/test/img0_bagfile.pgm"
+                #RUTA_IMAGEN_C = "/home/agusti/Descargas/test/img0_bagfile.dbt"
 
-                #RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
-                #RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
-                #RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
+                RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
+                RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
+                RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
 
                 if not os.path.exists(RUTA_IMAGEN_A):
                     rospy.loginfo("Revisar ruta de la imagen original") 
@@ -152,13 +152,13 @@ def main():
                 formato_imagen = "jpg"
                 formato_compresion = "jp2"
 
-                RUTA_IMAGEN_A = "/home/agusti/Descargas/img0_bagfile.pgm"
-                RUTA_IMAGEN_B = "/home/agusti/Descargas/test/img0_bagfile.pgm"
-                RUTA_IMAGEN_C = "/home/agusti/Descargas/test/img0_bagfile.jp2"
+                #RUTA_IMAGEN_A = "/home/agusti/Descargas/img0_bagfile.pgm"
+                #RUTA_IMAGEN_B = "/home/agusti/Descargas/test/img0_bagfile.pgm"
+                #RUTA_IMAGEN_C = "/home/agusti/Descargas/test/img0_bagfile.jp2"
 
-                #RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
-                #RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
-                #RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
+                RUTA_IMAGEN_A = script_dir + "/compressor_original_image/{}/img0.{}".format(key, formato_imagen)
+                RUTA_IMAGEN_B = script_dir + "/joiner_decompressed_image/{}/img{}.{}".format(key, cont, formato_imagen)
+                RUTA_IMAGEN_C = script_dir + "/compressor_compressed_image/{}/img{}.{}".format(key, cont, formato_compresion)
                 
                 if not os.path.exists(RUTA_IMAGEN_A):
                     rospy.loginfo("Revisar ruta de la imagen original")

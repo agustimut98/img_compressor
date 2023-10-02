@@ -21,13 +21,21 @@ class ImageError():
         if rospy.has_param(img_compressor_historic):
             self.historic = rospy.get_param(img_compressor_historic)
 
+        self.grayscale = True
+        img_compressor_grayscale = "/img_compressor_v2/grayscale"
+        if rospy.has_param(img_compressor_grayscale):
+            self.grayscale = rospy.get_param(img_compressor_grayscale)
+
         self.algoritmo = "DEBT"
         img_compressor_type = "/img_compressor_v2/type"
         if rospy.has_param(img_compressor_type):
             self.algoritmo = rospy.get_param(img_compressor_type)
 
         if self.algoritmo == "SPIHT":
-            self.formato_imagen = "pgm"
+            if self.grayscale == True:
+                self.formato_imagen = "pgm"
+            else:
+                self.formato_imagen = "ppm"
             self.formato_compresion = "ims"
 
         elif self.algoritmo == "DEBT":
@@ -64,7 +72,7 @@ class ImageError():
         if not os.path.exists(RUTA_IMAGEN_A):
             rospy.loginfo("Revisar ruta de la imagen original")
         if not os.path.exists(RUTA_IMAGEN_B):
-            rospy.loginfo("Revisar ruta de la imagen decomprimida")
+            rospy.loginfo("Revisar ruta de la imagen descomprimida")
         if not os.path.exists(RUTA_IMAGEN_C):
             rospy.loginfo("Revisar ruta de la imagen comprimida")    
 
@@ -93,7 +101,7 @@ class ImageError():
         rospy.loginfo("Raíz Cuadrada del Error Cuadrático Medio (RMSE): {:.2f}".format(rmse))
 
         # Calcular tamaño de la imagen comprimida
-        compressed_size = os.path.getsize(RUTA_IMAGEN_C)
+        compressed_size = float(os.path.getsize(RUTA_IMAGEN_C))
         units = "B"
 
         if (compressed_size >= 1024):
