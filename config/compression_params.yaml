@@ -31,22 +31,22 @@ img_compressor_v2:
   # CALIDAD USADA PARA DEBT
   # Quality value (0 = max) <0.000000>
   # initial value 4
-  # calculated recommended bagfile value 10
-  # calculated recommended pool value 8
+  # calculated recommended bagfile value 10, RMSE 5,74
+  # calculated recommended pool value 8, RMSE 3,11
   quality: 10
 
 
   # TASA DE BITS POR PIXEL PARA SPIHT
   # initial value 0.7
-  # calculated recommended bagfile value 0.16
-  # calculated recommended pool value 0.1
+  # calculated recommended bagfile value 0.16, RMSE 5,73
+  # calculated recommended pool value 0.1, RMSE 3,07
   bpp: 0.16
 
 
   # RATIO DE COMPRESION PARA JPEG2000
   # initial value 500
-  # calculated recommended bagfile  value 185
-  # calculated recommended pool value 400
+  # calculated recommended bagfile  value 185, RMSE 5,80
+  # calculated recommended pool value 400, RMSE 3,05
   ratio: 185
 
   # REESCALADO PARA JPEG2000
