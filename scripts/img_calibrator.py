@@ -75,7 +75,7 @@ def main():
 
     compression_params = {
         # Valors calibracio piscina
-        # 'SPIHT': [0.1], 'DEBT': [10], 'JPEG2000': [400]
+        # 'SPIHT': [0.1], 'DEBT': [8], 'JPEG2000': [400]
 
         # Valors calibracio bagfile
         # 'SPIHT': [0.16], 'DEBT': [10], 'JPEG2000': [185]
