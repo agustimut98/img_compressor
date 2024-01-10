@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Systems, Robotics and Vision
+University of the Balearic Islands
+Author: Agustí Mut Cortón
+Date: Summer 2023
+"""
+
 import os
 import cv2
 import time

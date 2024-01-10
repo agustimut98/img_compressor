@@ -1,17 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from time import time
-import rospy
-import cv2 as cv
-from sensor_msgs.msg import Image as ImageMsg
-from img_compressor_v2.msg import BinarySplit
-from cv_bridge import CvBridge
-from PIL import Image
-# import glymur
-import subprocess
+"""
+Systems, Robotics and Vision
+University of the Balearic Islands
+Author: Agustí Mut Cortón
+Date: Summer 2023
+"""
+
 import os
 import time
+import rospy
+import cv2 as cv
+import subprocess
+from PIL import Image
+from time import time
+from cv_bridge import CvBridge
+from sensor_msgs.msg import Image as ImageMsg
+from img_compressor_v2.msg import BinarySplit
 
 
 def run_imshrinker(input_file, output_file, script_dir, bpp,):
@@ -117,14 +123,14 @@ class ImageCompressor:
     def img_callback(self, img_data):
         script_dir = os.path.dirname(os.path.abspath(__file__))
 
-        #Establir ruta on guardar la imatge rebuda al topic original_image (../compressor_original_image)
+        # Establir ruta on guardar la imatge rebuda al topic original_image (../compressor_original_image)
         file_path_input = os.path.join(script_dir, "compressor_original_image")
 
         # Crear el directori en cas de no existir
         if not os.path.exists(file_path_input):
             os.makedirs(file_path_input)
 
-        #Establir ruta on guardar la imatge comprimida (../compressor_compressed_image)
+        # Establir ruta on guardar la imatge comprimida (../compressor_compressed_image)
         file_path_output = os.path.join(script_dir, "compressor_compressed_image") 
 
         # Crear el directori en cas de no existir
@@ -139,7 +145,7 @@ class ImageCompressor:
         if self.comp_type == "SPIHT":
             rospy.loginfo("Imatge rebuda, iniciant compresió amb SPIHT!")
 
-            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme (../compressor_original_image/SPIHT)
+            # Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme (../compressor_original_image/SPIHT)
             file_path_input_SPIHT = os.path.join(file_path_input, "SPIHT")
 
             # Crear el directori en cas de no existir
@@ -168,7 +174,7 @@ class ImageCompressor:
                 file_path_input_SPIHT = os.path.join(file_path_input_SPIHT, file_name)
 
 
-            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressor_compressed_image/SPIHT)
+            # Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressor_compressed_image/SPIHT)
             file_path_output_SPIHT = os.path.join(file_path_output, "SPIHT")
 
             # Crear el directori en cas de no existir
@@ -243,7 +249,7 @@ class ImageCompressor:
             file_path_input_DEBT = os.path.join(file_path_input_DEBT, file_name)
 
 
-            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressor_compressed_image/DEBT)
+            # Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressor_compressed_image/DEBT)
             file_path_output_DEBT = os.path.join(file_path_output, "DEBT")
 
             # Crear el directori en cas de no existir
@@ -296,7 +302,7 @@ class ImageCompressor:
         elif self.comp_type == "JPEG2000":
             rospy.loginfo("Imatge rebuda, iniciant compresió amb JPEG2000!")
 
-            #Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme (../compressor_original_image/JPEG2000)
+            # Establir ruta on guardar la imatge rebuda al topic original_image segons el tipus d'algoritme (../compressor_original_image/JPEG2000)
             file_path_input_JPEG2000 = os.path.join(file_path_input, "JPEG2000")
 
             # Crear el directori en cas de no existir
@@ -314,7 +320,7 @@ class ImageCompressor:
             file_path_input_JPEG2000 = os.path.join(file_path_input_JPEG2000, file_name)
 
 
-            #Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressor_compressed_image/JPEG2000)
+            # Establir ruta on guardar la imatge comprimida segons el tipus d'algoritme (../compressor_compressed_image/JPEG2000)
             file_path_output_JPEG2000 = os.path.join(file_path_output, "JPEG2000") 
 
             # Crear el directori en cas de no existir

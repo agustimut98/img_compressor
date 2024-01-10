@@ -33,5 +33,4 @@
         	<arg name = "resolution" value = "$(arg resolution)" />
     	</include>
 
-
 </launch>

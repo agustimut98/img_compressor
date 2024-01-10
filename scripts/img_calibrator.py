@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Systems, Robotics and Vision
+University of the Balearic Islands
+Author: Agustí Mut Cortón
+Date: Summer 2023
+"""
+
 import os
 import cv2
 import rospy
@@ -16,7 +23,7 @@ def run_imshrinker_compression(input_file, output_file, script_dir, bpp,):
     # Construye el comando como una lista de strings 
     command = [os.path.join(script_dir, "imshrinker"), bpp , input_file, output_file]
     
-    # Ejecuta el comando. Comadno de ejemplo de REDAME.md: ./imshrinker  c0.7 ../test-data/new425.ppm ../test-data/Cnew425ppm.ims
+    # Ejecuta el comando. Comando de ejemplo de REDAME.md: ./imshrinker  c0.7 ../test-data/new425.ppm ../test-data/Cnew425ppm.ims
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate()
 

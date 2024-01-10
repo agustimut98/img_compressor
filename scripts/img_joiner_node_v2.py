@@ -1,16 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from time import time
-import rospy
+"""
+Systems, Robotics and Vision
+University of the Balearic Islands
+Author: Agustí Mut Cortón
+Date: Summer 2023
+"""
+
 import os
+import cv2
+import rospy
+# import glymur
+import subprocess
+# from PIL import Image
+from time import time
+from cv_bridge import CvBridge
 from sensor_msgs.msg import Image as ImageMsg
 from img_compressor_v2.msg import BinarySplit
-import subprocess
-# import glymur
-from PIL import Image
-from cv_bridge import CvBridge
-import cv2
 
 
 def run_imshrinker(input_file, output_file, script_dir):
